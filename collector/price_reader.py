@@ -1,3 +1,271 @@
+# FRED DATA
+f"https://api.stlouisfed.org/fred/series/observations?series_id={SERIES_ID}&observation_start=2025-01-01&observation_end=2026-07-22&api_key={MY_API}&file_type=json"
+
+FEDFUNDS      미국 기준금리
+DGS2          미국채 2년
+DGS10         미국채 10년
+DGS30         미국채 30년
+DGS3MO        미국채 3개월
+
+CPIAUCSL      CPI
+CPILFESL      Core CPI
+PPIACO        PPI
+
+UNRATE        실업률
+ICSA          신규 실업수당
+PAYEMS        비농업고용
+
+GDP           GDP
+GDPC1         Real GDP
+
+M2SL          M2
+
+T5YIE         5Y Breakeven
+T10YIE        10Y Breakeven
+
+BAA           회사채
+AAA           AAA 회사채
+
+USREC         경기침체 여부
+
+NFCI          Financial Stress
+
+
+1. Economic Drivers
+===================
+
+Macroeconomic data that explains why markets move.
+
+### Monetary Policy
+- Federal Funds Rate (Fed Rate)
+미국기준금리
+https://m.stock.naver.com/front-api/marketIndex/standardInterest?category=standardInterest&reutersCode=USA&page=1
+
+- Bank of Korea Base Rate
+한국기준금리
+https://m.stock.naver.com/front-api/marketIndex/standardInterest?category=standardInterest&reutersCode=KOR&page=1
+
+- FOMC Decisions
+- CME FedWatch (Rate Cut/Hike Probability)
+
+### Inflation
+- CPI
+- Core CPI
+- PPI
+- Breakeven Inflation
+
+### Economic Growth
+- GDP
+- PMI
+- Unemployment Rate
+- Initial Jobless Claims
+
+### Consumer
+- Retail Sales
+- Consumer Confidence Index
+
+### Manufacturing
+- ISM Manufacturing PMI
+- Industrial Production
+
+### Housing
+- Home Sales
+- Case-Shiller Home Price Index
+- Building Permits
+
+------------------------------------------------
+
+2. Market Indicators
+====================
+
+Financial markets that react to macroeconomic changes.
+
+### Interest Rates
+
+United States
+- US 2-Year Treasury Yield
+미국국채2년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=US2YT%3DRR&page=1
+
+- US 10-Year Treasury Yield
+미국국채10년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=US10YT%3DRR&page=1
+"bond", "US10YT%3DRR", "USA Bond 10y"
+
+- US 30-Year Treasury Yield
+미국국채30년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=US30YT%3DRR&page=1
+"bond", "US30YT%3DRR", "USA Bond 30y"
+
+South Korea
+- KR 3-Year Government Bond Yield
+한국국채3년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=KR3YT%3DRR&page=1
+"bond", "KR3YT%3DRR", "Korea Bond 3y"
+
+- KR 10-Year Government Bond Yield
+한국국채10년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=KR10YT%3DRR&page=1
+"bond", "KR10YT%3DRR", "Korea Bond 10y"
+
+- KR 30-Year Government Bond Yield
+한국국채30년
+https://m.stock.naver.com/front-api/marketIndex/prices?category=bond&reutersCode=KR30YT%3DRR&page=1
+"bond", "KR30YT%3DRR", "Korea Bond 30y"
+
+
+### Foreign Exchange
+- USD/KRW
+달러/원 환율
+https://m.stock.naver.com/front-api/marketIndex/prices?category=exchange&reutersCode=FX_USDKRW&page=1
+"exchange", "FX_USDKRW", "Dollar Won Exchange"
+
+- Dollar Index (DXY)
+달러인덱스
+https://m.stock.naver.com/front-api/marketIndex/prices?category=exchange&reutersCode=.DXY&page=1
+"exchange", ".DXY", "Dollar Index"
+
+- USD/JPY
+달러/엔 환율
+https://m.stock.naver.com/front-api/marketIndex/prices?category=exchangeWorld&reutersCode=USDJPY&page=1
+
+- EUR/USD
+달러/유로 환율
+https://m.stock.naver.com/front-api/marketIndex/prices?category=exchangeWorld&reutersCode=USDEUR&page=1
+
+### Commodities
+- Gold
+국내 금
+https://m.stock.naver.com/front-api/marketIndex/prices?category=metals&reutersCode=M04020000&page=1
+"metals", "M04020000", "KRX Gold"
+
+국제 금
+https://m.stock.naver.com/front-api/marketIndex/prices?category=metals&reutersCode=GCcv1&page=1
+"metals", "GCcv1", "International Gold"
+
+- Silver
+국제 은
+https://m.stock.naver.com/front-api/marketIndex/prices?category=metals&reutersCode=SIcv1&page=1
+"metals", "SIcv1", "International Silver"
+
+- WTI Crude Oil
+WTI
+https://m.stock.naver.com/front-api/marketIndex/prices?category=energy&reutersCode=CLcv1&page=1
+"energy", "CLcv1", "West Texas Intermediate"
+
+- Brent Crude Oil
+브렌트유
+https://m.stock.naver.com/front-api/marketIndex/prices?category=energy&reutersCode=LCOcv1&page=1
+"energy", "LCOcv1", "Brent Crude"
+
+- Natural Gas
+천연가스
+https://m.stock.naver.com/front-api/marketIndex/prices?category=energy&reutersCode=NGcv1&page=1
+
+- Copper
+구리
+https://m.stock.naver.com/front-api/marketIndex/prices?category=metals&reutersCode=CMCU0&page=1
+
+### Market Volatility
+- VIX
+https://m.stock.naver.com/front-api/stock/foreign/index/price/list?code=.VIX&page=1&pageSize=50
+
+### Credit Risk
+- CDS
+- Corporate Bond Spread
+- TED Spread
+
+------------------------------------------------
+
+3. Market Performance
+=====================
+
+Asset prices that reflect market reactions.
+
+### Equity Indices
+- KOSPI
+(URL 기본값이 조금 다르게 생김. 일봉, 주봉, 월봉 그리기 가능)
+https://m.stock.naver.com/front-api/stock/domestic/index/price/list?code=KOSPI&page=1&pageSize=50
+
+- KOSDAQ
+https://m.stock.naver.com/front-api/stock/domestic/index/price/list?code=KOSDAQ&page=1&pageSize=50
+
+- S&P 500
+https://m.stock.naver.com/front-api/stock/foreign/index/price/list?code=.INX&page=1&pageSize=50
+
+- NASDAQ
+https://m.stock.naver.com/front-api/stock/foreign/index/price/list?code=.IXIC&page=1&pageSize=50
+
+- Russell 2000
+
+
+### Sectors
+- Semiconductors
+- Financials
+- Energy
+- Consumer Staples / Consumer Discretionary
+- Healthcare
+
+------------------------------------------------
+
+4. Capital Flows
+================
+
+Tracks where money is moving.
+
+### Investor Flows
+- Foreign Net Buying
+- Institutional Net Buying
+- Retail Net Buying
+
+### ETF Flows
+- US Equity ETF Flows
+- Gold ETF Flows
+- Bond ETF Flows
+
+------------------------------------------------
+
+5. Company Fundamentals
+=======================
+
+Fundamental indicators for individual companies.
+
+- PER (P/E Ratio)
+- PBR (P/B Ratio)
+- EPS
+- ROE
+- Dividend Yield
+- Operating Profit Growth
+
+------------------------------------------------
+
+6. News & Events
+================
+
+Market news and economic events.
+
+- Economic Calendar
+- Earnings Calendar
+- Central Bank Speeches
+- Financial News
+
+
+#####################################################################################################
+
+네이버 증권 (지표 찾아올 수 있는 주소)
+https://m.stock.naver.com/marketindex/home/major/exchange/bond
+
+-> F12 -> Network -> Fetch/XHR -> prices?category=exchange&reutersCode=.DXY&page=1 뭐 이런게 있음. -> Headers에서 링크 받아오면 됨.
+
+
+FRED
+https://fred.stlouisfed.org/
+
+
+국내주식 읽어오기
+https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=20240211&endTime=20251027&timeframe=day
+-> startTime, endTime 수정하면 데이터 전체적으로 확인하기 쌉가능
+
 import requests
 import pandas as pd
 from data_ver2.market_index.naver_to_df import make_market_index_df
