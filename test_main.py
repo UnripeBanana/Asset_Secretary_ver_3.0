@@ -14,4 +14,4 @@ from collector.chart_maker.price_chart_maker import price_chart_maker
 from collector.chart_maker.standard_interest_chart_maker import standard_interest_chart_maker
 
 
-print(domestic_stock_data_reader)
+print(domestic_stock_data_reader(20250720, 20260724, "005930"))
