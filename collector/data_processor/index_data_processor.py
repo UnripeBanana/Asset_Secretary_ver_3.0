@@ -1,6 +1,6 @@
 import pandas as pd
 
-def price_data_processor(data, ticker, name):
+def index_data_processor(data, ticker, name):
 
     # 네이버 증권에서 받은 오리지널 데이터
     df = pd.DataFrame(data["result"])
