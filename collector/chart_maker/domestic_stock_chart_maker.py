@@ -97,13 +97,6 @@ def domestic_stock_chart_maker(stock):
     margin = (price_max - price_min) * 0.05
     
     
-    # y축을 0부터 보이게 설정
-    ax.set_ylim(
-        bottom = price_min - margin,
-        top = price_max + margin
-    )
-    
-    
     ax.set_ylim(
         price_min - margin,
         price_max + margin
@@ -140,18 +133,20 @@ def domestic_stock_chart_maker(stock):
     
     high_price = stock.loc[high_idx, "high"]
     low_price = stock.loc[low_idx, "low"]
+
+    offset = (price_max - price_min) * 0.03
     
     # 최고가 표시
     ax.plot(
         high_idx,
-        high_price + 700,
+        high_price + offset,
         marker="v",                          # ▼ 표시
         color="gray",
         markersize=5
     )
     ax.text(
         high_idx + 4,                      # 왼쪽으로 약간 이동
-        high_price + 700,          # ▼와 같은 높이
+        high_price + offset,          # ▼와 같은 높이
         f"High Price {high_price:,}",
         va="center",
         ha="right",
@@ -162,14 +157,14 @@ def domestic_stock_chart_maker(stock):
     # 최저가 표시
     ax.plot(
         low_idx,
-        low_price - 700,
+        low_price - offset,
         marker="^",                          # ▲ 표시
         color="gray",
         markersize=5
     )
     ax.text(
         low_idx + 0.5,                       # 오른쪽으로 약간 이동
-        low_price - 700,           # ▲와 같은 높이
+        low_price - offset,           # ▲와 같은 높이
         f"Low Price {low_price:,}",
         va="center",
         ha="left",
