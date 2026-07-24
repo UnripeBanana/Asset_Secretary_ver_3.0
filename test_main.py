@@ -1,14 +1,14 @@
-from collector.reader.domestic_stock_reader import
-from collector.reader.index_reader import
-from collector.reader.price_reader import
-from collector.reader.standard_interest_reader import
+from collector.data_reader.domestic_stock_data_reader import
+from collector.data_reader.index_data_reader import
+from collector.data_reader.price_data_reader import
+from collector.data_reader.standard_interest_data_reader import
 
-from collector.processor.domestic_stock_reader import
-from collector.processor.index_reader import
-from collector.processor.price_reader import
-from collector.processor.standard_interest_reader import
+from collector.data_processor.domestic_stock_data_processor import
+from collector.data_processor.index_data_processor import
+from collector.data_processor.price_data_processor import
+from collector.data_processor.standard_interest_data_processor import
 
-from collector.maker.domestic_stock_reader import
-from collector.maker.index_reader import
-from collector.maker.price_reader import
-from collector.maker.standard_interest_reader import
+from collector.chart_maker.domestic_stock_chart_maker import
+from collector.chart_maker.index_chart_maker import
+from collector.chart_maker.price_chart_maker import
+from collector.chart_maker.standard_interest_chart_maker import
