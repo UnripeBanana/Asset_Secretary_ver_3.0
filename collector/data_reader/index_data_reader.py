@@ -12,7 +12,7 @@ import requests
 import pandas as pd
 from data_ver2.market_index.naver_to_df import make_market_index_df
 
-def market_index_reader(start, end, category, ticker, name, currency):
+def index_data_reader(start, end, category, ticker, name, currency):
     start = pd.to_datetime(str(start), format="%Y%m%d")
     end = pd.to_datetime(str(end), format="%Y%m%d")
 
