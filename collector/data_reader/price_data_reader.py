@@ -44,12 +44,12 @@ def price_data_reader(start, end, category, ticker, name, currency):
         
         response = requests.get(url, headers=headers)
         
-        data = response.json()
+        price_data = response.json()
 
-        if not data.get("result"):
+        if not price_data.get("result"):
             break    
 
-        page_df = make_market_index_df(data, ticker, name)
+        page_df = make_market_index_df(price_data, ticker, name)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
@@ -67,19 +67,19 @@ def price_data_reader(start, end, category, ticker, name, currency):
     
         page += 1        
 
-    market_index_data = pd.concat(dfs, ignore_index=True)
+    price_data = pd.concat(dfs, ignore_index=True)
 
-    market_index_data["currency"] = currency
+    price_data["currency"] = currency
 
-    market_index_data = market_index_data[
-        (market_index_data["date"] >= start) &
-        (market_index_data["date"] <= end)
+    price_data = price_data[
+        (price_data["date"] >= start) &
+        (price_data["date"] <= end)
     ]
     
-    market_index_data = (
-        market_index_data
+    price_data = (
+        price_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return market_index_data
+    return price_data
