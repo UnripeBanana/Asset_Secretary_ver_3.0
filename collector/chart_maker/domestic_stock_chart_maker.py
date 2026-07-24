@@ -10,6 +10,7 @@ def domestic_stock_chart_maker(stock):
     #-----------------------------------------------------
     fig, ax = plt.subplots(figsize=(15, 8))
     x = np.arange(len(stock))
+    stock = stock.reset_index(drop=True)          # stock index 초기화 작업(오류 방지)
 
     #-----------------------------------------------------
     # 캔들차트 생성
@@ -207,7 +208,8 @@ def domestic_stock_chart_maker(stock):
     # 저장
     #-----------------------------------------------------
     plt.tight_layout()
-    name = page["properties"]["종목"]["title"][0]["plain_text"]
+    name = 
+    ticker = 
     
     title = f"data_ver2/image/{name}_{ticker}.png"
     
@@ -216,4 +218,5 @@ def domestic_stock_chart_maker(stock):
         dpi=300,
         bbox_inches="tight"
     )
-    )
+
+    plt.close(fig)
