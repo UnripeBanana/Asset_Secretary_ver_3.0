@@ -6,7 +6,7 @@
 
 import requests
 import pandas as pd
-from data_ver2.market_index.naver_to_df import make_market_index_df
+from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
 
 def standard_interest_data_reader(start, end, category, ticker, name, currency):
     start = pd.to_datetime(str(start), format="%Y%m%d")
