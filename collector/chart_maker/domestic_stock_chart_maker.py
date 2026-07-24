@@ -1,6 +1,3 @@
-from config.notion import NOTION_DOMESTIC_STOCK_INFO_DB_ID
-from config.csv import DOMESTIC_STOCK_CSV_PATH
-from notion.get_all_pages import get_all_pages
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -34,20 +31,63 @@ for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
     if ticker != "005930":
         continue
 
+    #-----------------------------------------------------
     # 가격 데이터 네이버 증권에서 읽어오기
+    #-----------------------------------------------------
     start = 20250720
     end = 20260720
     ticker = "005930"
     stock = domestic_stock_data_reader(start, end, ticker)
 
+    #-----------------------------------------------------
     # chart 사이즈 설정
+    #-----------------------------------------------------
     fig, ax = plt.subplots(figsize=(15, 8))
     x = np.arange(len(stock))
 
+    #-----------------------------------------------------
     # 캔들차트 생성
-    make_candle_chart(ax, stock)
+    #-----------------------------------------------------
+    for i, row in stock.iterrows():
+        open_price = row["open"]
+        high_price = row["high"]
+        low_price = row["low"]
+        close_price = row["close"]
+    
+        # 상승 / 하락 색상
+        color = "#e53935" if close_price > open_price else "#1565c0" if close_price < open_price else "#000000"
+    
+        # 심지
+        ax.vlines(
+            x=i,
+            ymin=low_price,
+            ymax=high_price,
+            color=color,
+            linewidth=1.2
+        )
+    
+        # 몸통
+        body_bottom = min(open_price, close_price)
+        body_height = abs(close_price - open_price)
+    
+        # 시가 = 종가인 경우도 보이도록
+        if body_height == 0:
+            body_height = 5
 
+        candle_width = 0.7
+        rect = Rectangle(
+            (i - candle_width / 2, body_bottom),
+            candle_width,
+            body_height,
+            facecolor=color,
+            edgecolor="none"     # ← 테두리 완전 제거
+        )
+    
+        ax.add_patch(rect)
+
+    #-----------------------------------------------------
     # 이동평균선
+    #-----------------------------------------------------
     stock["MA5"] = stock["close"].rolling(5).mean()
     stock["MA20"] = stock["close"].rolling(20).mean()
     stock["MA60"] = stock["close"].rolling(60).mean()
@@ -60,16 +100,24 @@ for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
     
     ax.legend(loc="upper left")
 
+    #-----------------------------------------------------
     # 축 설정
+    #-----------------------------------------------------
     set_axis(ax, stock)
 
+    #-----------------------------------------------------
     # 최고가 최저가 표시
+    #-----------------------------------------------------
     present_high_and_low (ax, stock)
 
+    #-----------------------------------------------------
     # 현재가 표시
+    #-----------------------------------------------------
     present_current_price(ax, stock)
-    
+
+    #-----------------------------------------------------
     # 저장
+    #-----------------------------------------------------
     plt.tight_layout()
     name = page["properties"]["종목"]["title"][0]["plain_text"]
     
@@ -80,33 +128,4 @@ for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
         dpi=300,
         bbox_inches="tight"
     )
-
-    # 노션에 있는 기존 이미지 삭제
-    blocks = notion.blocks.children.list(block_id=page["id"])
-    if len(blocks["results"]):
-        for block in blocks["results"]:
-            notion.blocks.delete(block["id"])
-    
-    # 노션 업로드
-    chart_url = (
-        "https://raw.githubusercontent.com/"
-        "UnripeBanana/Asset_Secretary_ver_2.5/main/"
-        f"data_ver2/image/{name}_{ticker}.png"
-    )
-
-    notion.blocks.children.append(
-        block_id=page["id"],
-        #after=heading_block_id,
-        children=[
-            {
-                "object": "block",
-                "type": "image",
-                "image": {
-                    "type": "external",
-                    "external": {
-                        "url": chart_url
-                    }
-                }
-            }
-        ]
     )
