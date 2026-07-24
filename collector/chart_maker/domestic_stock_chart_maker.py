@@ -4,41 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-# -----------------------------
-# 국내주식 차트 생성
-# -----------------------------
-from assets.domestic_stock.info.reader import get_ticker
-from charts.read_csv import read_csv
-from charts.candle_chart import make_candle_chart
-from charts.moving_average import moving_average
-from charts.axis import set_axis
-from charts.high_low import present_high_and_low
-from charts.current_price import present_current_price
-from notion.client import notion
-from notion.initialize_info_page import initialize_stock_page
-
-from data_ver2.domestic_stock.reader import domestic_stock_data_reader
-
-# 나중에는
-# make_chart 함수 하나, delete_chart 하나 update_chart 하나 이렇게 구성하는 것도 괜찮을 듯. 깔끔하게
-
-for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
-    # 티커 데이터 추출
-    ticker = get_ticker(page)
-    if not ticker:
-        continue
-
-    if ticker != "005930":
-        continue
-
-    #-----------------------------------------------------
-    # 가격 데이터 네이버 증권에서 읽어오기
-    #-----------------------------------------------------
-    start = 20250720
-    end = 20260720
-    ticker = "005930"
-    stock = domestic_stock_data_reader(start, end, ticker)
-
+def domestic_stock_chart_maker(stock):
     #-----------------------------------------------------
     # chart 사이즈 설정
     #-----------------------------------------------------
