@@ -209,7 +209,7 @@ def domestic_stock_chart_maker(stock, name):
     #-----------------------------------------------------
     plt.tight_layout()
 
-    ticker = 
+    ticker = stock.iloc[1]["ticker"]
     
     title = f"data_ver2/image/{name}_{ticker}.png"
     
