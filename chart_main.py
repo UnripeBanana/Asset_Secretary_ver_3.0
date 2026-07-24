@@ -1,6 +1,3 @@
-from config.notion import NOTION_DOMESTIC_STOCK_INFO_DB_ID
-from config.csv import DOMESTIC_STOCK_CSV_PATH
-from notion.get_all_pages import get_all_pages
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -44,22 +41,69 @@ for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
     fig, ax = plt.subplots(figsize=(15, 8))
     x = np.arange(len(stock))
 
-    # 캔들차트 생성
-    make_candle_chart(ax, stock)
+    #----------------------------------------
+    # 캔들차트 생성    
+    #----------------------------------------
+    for i, row in stock.iterrows():
+        open_price = row["open"]
+        high_price = row["high"]
+        low_price = row["low"]
+        close_price = row["close"]
+    
+        # 상승 / 하락 색상
+        color = "#e53935" if close_price > open_price else "#1565c0" if close_price < open_price else "#000000"
+    
+        # 심지
+        ax.vlines(
+            x=i,
+            ymin=low_price,
+            ymax=high_price,
+            color=color,
+            linewidth=1.2
+        )
+    
+        # 몸통
+        body_bottom = min(open_price, close_price)
+        body_height = abs(close_price - open_price)
+    
+        # 시가 = 종가인 경우도 보이도록
+        if body_height == 0:
+            body_height = 5
 
+        candle_width = 0.7
+        rect = Rectangle(
+            (i - candle_width / 2, body_bottom),
+            candle_width,
+            body_height,
+            facecolor=color,
+            edgecolor="none"     # ← 테두리 완전 제거
+        )
+    
+        ax.add_patch(rect)
+
+    #----------------------------------------
     # 이동평균선
+    #----------------------------------------
     moving_average(ax, stock, x)
 
+    #----------------------------------------
     # 축 설정
+    #----------------------------------------
     set_axis(ax, stock)
 
+    #----------------------------------------
     # 최고가 최저가 표시
+    #----------------------------------------
     present_high_and_low (ax, stock)
 
+    #----------------------------------------
     # 현재가 표시
+    #----------------------------------------
     present_current_price(ax, stock)
-    
+
+    #----------------------------------------
     # 저장
+    #----------------------------------------
     plt.tight_layout()
     name = page["properties"]["종목"]["title"][0]["plain_text"]
     
@@ -69,34 +113,4 @@ for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
         title,
         dpi=300,
         bbox_inches="tight"
-    )
-
-    # 노션에 있는 기존 이미지 삭제
-    blocks = notion.blocks.children.list(block_id=page["id"])
-    if len(blocks["results"]):
-        for block in blocks["results"]:
-            notion.blocks.delete(block["id"])
-    
-    # 노션 업로드
-    chart_url = (
-        "https://raw.githubusercontent.com/"
-        "UnripeBanana/Asset_Secretary_ver_2.5/main/"
-        f"data_ver2/image/{name}_{ticker}.png"
-    )
-
-    notion.blocks.children.append(
-        block_id=page["id"],
-        #after=heading_block_id,
-        children=[
-            {
-                "object": "block",
-                "type": "image",
-                "image": {
-                    "type": "external",
-                    "external": {
-                        "url": chart_url
-                    }
-                }
-            }
-        ]
     )
