@@ -20,7 +20,7 @@
 
 import requests
 import pandas as pd
-from cololector.data_processor.price_data_processor import price_data_processor
+from collector.data_processor.price_data_processor import price_data_processor
 
 def price_data_reader(start, end, category, ticker, name, currency):
     start = pd.to_datetime(str(start), format="%Y%m%d")
