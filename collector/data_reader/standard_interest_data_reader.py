@@ -30,12 +30,12 @@ def standard_interest_data_reader(start, end, category, ticker, name, currency):
         
         response = requests.get(url, headers=headers)
         
-        data = response.json()
+        standard_interest_data = response.json()
 
-        if not data.get("result"):
+        if not standard_interest_data.get("result"):
             break    
 
-        page_df = make_market_index_df(data, ticker, name)
+        page_df = make_market_index_df(standard_interest_data, ticker, name)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
@@ -53,19 +53,19 @@ def standard_interest_data_reader(start, end, category, ticker, name, currency):
     
         page += 1        
 
-    market_index_data = pd.concat(dfs, ignore_index=True)
+    standard_interest_data = pd.concat(dfs, ignore_index=True)
 
-    market_index_data["currency"] = currency
+    standard_interest_data["currency"] = currency
 
-    market_index_data = market_index_data[
-        (market_index_data["date"] >= start) &
-        (market_index_data["date"] <= end)
+    standard_interest_data = standard_interest_data[
+        (standard_interest_data["date"] >= start) &
+        (standard_interest_data["date"] <= end)
     ]
     
-    market_index_data = (
-        market_index_data
+    standard_interest_data = (
+        standard_interest_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return market_index_data
+    return standard_interest_data
