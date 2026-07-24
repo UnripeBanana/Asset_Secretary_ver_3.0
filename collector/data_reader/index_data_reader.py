@@ -34,12 +34,12 @@ def index_data_reader(start, end, category, ticker, name, currency):
         
         response = requests.get(url, headers=headers)
         
-        data = response.json()
+        index_data = response.json()
 
-        if not data.get("result"):
+        if not index_data.get("result"):
             break    
 
-        page_df = make_market_index_df(data, ticker, name)
+        page_df = make_market_index_df(index_data, ticker, name)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
@@ -57,19 +57,19 @@ def index_data_reader(start, end, category, ticker, name, currency):
     
         page += 1        
 
-    market_index_data = pd.concat(dfs, ignore_index=True)
+    index_data = pd.concat(dfs, ignore_index=True)
 
-    market_index_data["currency"] = currency
+    index_data["currency"] = currency
 
-    market_index_data = market_index_data[
-        (market_index_data["date"] >= start) &
-        (market_index_data["date"] <= end)
+    index_data = market_index_data[
+        (index_data["date"] >= start) &
+        (index_data["date"] <= end)
     ]
     
-    market_index_data = (
-        market_index_data
+    index_data = (
+        index_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return market_index_data
+    return index_data
