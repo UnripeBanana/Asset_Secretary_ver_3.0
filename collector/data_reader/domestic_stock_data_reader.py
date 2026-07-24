@@ -42,14 +42,14 @@ def domestic_stock_data_reader(start, end, ticker):
     #print(repr(text))
 
     # 문자열 → 리스트
-    data = ast.literal_eval(text)
+    domestic_stock_data = ast.literal_eval(text)
 
     # DataFrame 생성
-    df = pd.DataFrame(data[1:], columns=data[0])
+    domestic_stock_df = pd.DataFrame(domestic_stock_data[1:], columns=domestic_stock_data[0])
 
-    df["날짜"] = pd.to_datetime(df["날짜"], format="%Y%m%d")
+    domestic_stock_df["날짜"] = pd.to_datetime(domestic_stock_df["날짜"], format="%Y%m%d")
     
-    df = df.rename(columns={
+    domestic_stock_df = domestic_stock_df.rename(columns={
         "날짜": "date",
         "시가": "open",
         "고가": "high",
@@ -58,4 +58,4 @@ def domestic_stock_data_reader(start, end, ticker):
         "거래량": "volume"
     })
 
-    return df
+    return domestic_stock_df
