@@ -13,5 +13,6 @@ from collector.data_reader.domestic_stock_data_reader import domestic_stock_data
 #from collector.chart_maker.standard_interest_chart_maker import standard_interest_chart_maker
 
 
-print(domestic_stock_data_reader(20250720, 20260724, "005930").iterrows())
+#print(domestic_stock_data_reader(20250720, 20260724, "005930").iterrows())
 
+domestic_stock_chart_maker(domestic_stock_data_reader(20250720, 20260724, "005930"), "삼성전자"):
