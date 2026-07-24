@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-def domestic_stock_chart_maker(stock, ticker, name):
+def domestic_stock_chart_maker(stock, name):
     #-----------------------------------------------------
     # chart 사이즈 설정
     #-----------------------------------------------------
@@ -208,6 +208,9 @@ def domestic_stock_chart_maker(stock, ticker, name):
     # 저장
     #-----------------------------------------------------
     plt.tight_layout()
+
+    ticker = 
+    
     title = f"data_ver2/image/{name}_{ticker}.png"
     
     plt.savefig(
