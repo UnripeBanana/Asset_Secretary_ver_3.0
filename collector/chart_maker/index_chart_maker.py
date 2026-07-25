@@ -227,7 +227,7 @@ def index_chart_maker(df):
         ax.transData    # y는 데이터 좌표
     )
 
-    triangle_height = (price_max - price_min) * 0.018
+    triangle_height = (price_max - price_min) * 0.015
     triangle = Polygon(
         [
             [0.9998, last_close],
