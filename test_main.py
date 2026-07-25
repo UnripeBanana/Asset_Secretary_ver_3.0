@@ -10,7 +10,7 @@ from collector.chart_maker.domestic_stock_chart_maker import domestic_stock_char
 
 
 # 작업 완료
-domestic_stock_chart_maker(domestic_stock_data_reader(2025-07-20, 2026-07-24, "005930"), "삼성전자")
+domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
 
 
 # 작업 중
