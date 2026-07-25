@@ -211,7 +211,7 @@ def domestic_stock_chart_maker(stock, name):
 
     ticker = stock.iloc[1]["ticker"]
     
-    title = f"data_ver2/image/{name}_{ticker}.png"
+    title = f"data/image/domestic_stock/{name}_{ticker}.png"
     
     plt.savefig(
         title,
