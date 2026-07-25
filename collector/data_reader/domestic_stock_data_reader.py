@@ -8,10 +8,12 @@ import ast
 import re
 
 def domestic_stock_data_reader(start, end, ticker):
-    # 입력 형식 표시하려고 남겨둔 내용. 지우지 말 것
-    #start = 20260420
-    #end = 20260720
-    #ticker = "005930"
+    # start and end input format : "2026-07-25"
+    # ticker input format : "005930"
+    # using format.. transforming start and end to : "20260725"
+    
+    start = pd.to_datetime(start).strftime("%Y%m%d")
+    end = pd.to_datetime(end).strftime("%Y%m%d")
     
     url = (
         f"https://m.stock.naver.com/front-api/external/chart/domestic/info"
