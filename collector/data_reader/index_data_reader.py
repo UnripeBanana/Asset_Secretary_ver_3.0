@@ -39,7 +39,7 @@ def index_data_reader(start, end, category, ticker, name, currency):
         if not index_data.get("result"):
             break    
 
-        page_df = make_market_index_df(index_data, ticker, name)
+        page_df = index_data_processor(index_data, ticker, name)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
