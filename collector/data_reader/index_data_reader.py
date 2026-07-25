@@ -13,8 +13,8 @@ import pandas as pd
 from collector.data_processor.index_data_processor import index_data_processor
 
 def index_data_reader(start, end, code):
-    start = pd.to_datetime(str(start), format="%Y%m%d")
-    end = pd.to_datetime(str(end), format="%Y%m%d")
+    start = pd.to_datetime(str(start), format="%Y-%m-%d")
+    end = pd.to_datetime(str(end), format="%Y-%m-%d")
 
     page = 1
     dfs = []
@@ -45,6 +45,7 @@ def index_data_reader(start, end, code):
             pd.to_datetime(page_df["date"], utc=True)
               .dt.date
         )
+        
         page_df["date"] = pd.to_datetime(page_df["date"])
 
         dfs.append(page_df)
