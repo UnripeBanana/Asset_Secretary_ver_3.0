@@ -14,4 +14,4 @@ from collector.data_reader.index_data_reader import index_data_reader
 
 
 # 작업 중
-print(index_data_reader(20250720, 20260724, "KOSPI"))
+print(index_data_reader(2025-07-20, 2026-07-24, "KOSPI"))
