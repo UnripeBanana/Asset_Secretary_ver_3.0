@@ -15,4 +15,4 @@ from collector.data_reader.domestic_stock_data_reader import domestic_stock_data
 
 #print(domestic_stock_data_reader(20250720, 20260724, "005930"))
 
-domestic_stock_chart_maker(domestic_stock_data_reader(20250720, 20260724, "005930"), "삼성전자"):
+domestic_stock_chart_maker(domestic_stock_data_reader(20250720, 20260724, "005930"), "삼성전자")
