@@ -13,9 +13,11 @@ import pandas as pd
 from collector.data_processor.index_data_processor import index_data_processor
 
 def index_data_reader(start, end, code):
-    start = pd.to_datetime(str(start), format="%Y-%m-%d")
-    end = pd.to_datetime(str(end), format="%Y-%m-%d")
+    start = pd.to_datetime(str(start))
+    end = pd.to_datetime(str(end))
 
+    print(start)
+    """
     page = 1
     dfs = []
     
@@ -74,3 +76,4 @@ def index_data_reader(start, end, code):
     )
 
     return index_data
+    """
