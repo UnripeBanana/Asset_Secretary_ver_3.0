@@ -1,6 +1,6 @@
 import pandas as pd
 
-def index_data_processor(data, ticker, name):
+def index_data_processor(data, code):
 
     # 네이버 증권에서 받은 오리지널 데이터
     df = pd.DataFrame(data["result"])
@@ -69,12 +69,11 @@ def index_data_processor(data, ticker, name):
     )
 
     # 사용자로부터 입력받은 데이터 입력
-    df["ticker"] = ticker
-    df["name"] = name
+    df["code"] = code
 
     # 데이터프레임 컬럼 순서 설정
     df = df[
-        ["date", "ticker", "name", "close", "change", "rate"]
+        ["date", "code", "open", "close", "high", "low", "change", "rate"]
     ]
 
     # 날짜 순으로 정렬 후 return
