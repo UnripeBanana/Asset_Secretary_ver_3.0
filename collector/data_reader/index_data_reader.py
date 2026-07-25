@@ -12,7 +12,7 @@ import requests
 import pandas as pd
 from collector.data_processor.index_data_processor import index_data_processor
 
-def index_data_reader(start, end, category, ticker, name, currency):
+def index_data_reader(start, end, code):
     start = pd.to_datetime(str(start), format="%Y%m%d")
     end = pd.to_datetime(str(end), format="%Y%m%d")
 
@@ -39,7 +39,7 @@ def index_data_reader(start, end, category, ticker, name, currency):
         if not index_data.get("result"):
             break    
 
-        page_df = index_data_processor(index_data, ticker, name)
+        page_df = index_data_processor(index_data, code)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
