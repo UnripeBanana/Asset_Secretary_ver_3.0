@@ -10,23 +10,27 @@
 
 import requests
 import pandas as pd
-from collector.data_processor.index_data_processor import index_data_processor
+#from collector.data_processor.index_data_processor import index_data_processor
 
 def index_data_reader(start, end, code):
     start = pd.to_datetime(str(start))
     end = pd.to_datetime(str(end))
 
-    print(start)
-    """
     page = 1
     dfs = []
-    
+
+    if code in ["KOSPI", "KOSDAQ"]:
+        is_foreign = "domestic"
+    else:
+        is_foreign = "foreign"
+
+    # https://m.stock.naver.com/front-api/stock/domestic/index/price/list?code=KOSPI&page=1&pageSize=10
     while True:
         url = (
-            "https://m.stock.naver.com/stock/domestic/index/price/list"
+            f"https://m.stock.naver.com/front-api/stock/{is_foreign}/index/price/list"
             f"?code={code}"
             f"&page={page}"
-            f"&pageSize=50"
+            "&pageSize=50"
         )
         
         headers = {
@@ -62,9 +66,7 @@ def index_data_reader(start, end, code):
 
     index_data = pd.concat(dfs, ignore_index=True)
 
-    index_data["currency"] = currency
-
-    index_data = market_index_data[
+    index_data = index_data[
         (index_data["date"] >= start) &
         (index_data["date"] <= end)
     ]
@@ -76,4 +78,3 @@ def index_data_reader(start, end, code):
     )
 
     return index_data
-    """
