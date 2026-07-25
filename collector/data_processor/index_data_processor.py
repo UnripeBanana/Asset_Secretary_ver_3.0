@@ -6,18 +6,26 @@ def index_data_processor(data, ticker, name):
     df = pd.DataFrame(data["result"])
 
     # 오리지널 데이터에서 불필요한 부분 제거
-    df = df[["localTradedAt", "closePrice", "fluctuations", "fluctuationsRatio"]]
+    df = df[[
+        "localTradedAt",
+        "closePrice",
+        "compareToPreviousClosePrice",
+        "fluctuationsRatio",
+        "openPrice",
+        "highPrice",
+        "lowPrice"
+    ]]
 
     # 기존에 사용 중인 명칭으로 변경
     df = df.rename(columns={
         "localTradedAt": "date",
         "closePrice": "close",
-        "fluctuations": "change",
-        "fluctuationsRatio": "rate"
+        "compareToPreviousClosePrice": "change",
+        "fluctuationsRatio": "rate",
+        "openPrice": "open",
+        "highPrice": "high",
+        "lowPrice": "low"
     })
-
-    # 기존에 사용중인 형식으로 변경 (문제 있어보임. 생략)
-    #df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
 
     # str -> int
     df["close"] = (
@@ -26,7 +34,7 @@ def index_data_processor(data, ticker, name):
         .astype(float)
     )
 
-    # str -. int
+    # str -> int
     df["change"] = (
         df["change"]
         .str.replace(",", "", regex=False)
@@ -36,6 +44,27 @@ def index_data_processor(data, ticker, name):
     # str -> float
     df["rate"] = (
         df["rate"]
+        .astype(float)
+    )
+
+    # str -> int
+    df["open"] = (
+        df["open"]
+        .str.replace(",", "", regex=False)
+        .astype(float)
+    )
+
+    # str -> int
+    df["high"] = (
+        df["high"]
+        .str.replace(",", "", regex=False)
+        .astype(float)
+    )
+
+    # str -> int
+    df["low"] = (
+        df["low"]
+        .str.replace(",", "", regex=False)
         .astype(float)
     )
 
