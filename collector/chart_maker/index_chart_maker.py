@@ -267,7 +267,17 @@ def index_chart_maker(df):
     # 저장
     plt.tight_layout()
 
-    name = df.iloc[0]["code"]
+    code_trans = {
+        "KOSPI": "KOSPI",
+        "KOSDAQ": "KOSDAQ",
+        "KPI200": "KOSPI_200",
+        ".IXIC": "NASDAQ",
+        ".INX": "S&P_500",
+        ".DJI": "Dow_Jones",
+        ".VIX": "VIX"
+    }
+    
+    name = code_trans[index_df.iloc[0]["code"]]
 
     title = f"data/image/market_index/{name}_chart.png"
     
