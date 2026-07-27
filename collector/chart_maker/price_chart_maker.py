@@ -224,7 +224,7 @@ def price_chart_maker(price_df):
         ax.transData    # y는 데이터 좌표
     )
 
-    triangle_height = (price_max - price_min) * 0.015
+    triangle_height = (price_max - price_min) * 0.014
     triangle = Polygon(
         [
             [0.9998, current_close],
