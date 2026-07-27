@@ -267,7 +267,7 @@ def domestic_stock_chart_maker(stock_df, name):
     plt.tight_layout()
 
     ticker = stock_df.iloc[1]["ticker"]
-    title = f"data/image/market_index/{name}_{ticker}_chart.png"
+    title = f"data/image/domestic_stock/{name}_{ticker}_chart.png"
 
     plt.savefig(
         title,
