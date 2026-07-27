@@ -8,7 +8,7 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def index_chart_maker(price_df):
+def price_chart_maker(price_df):
     price_df = price_df.reset_index(drop=True)          # price_df index 초기화 작업(오류 방지)
 
     # ---------------------------------
