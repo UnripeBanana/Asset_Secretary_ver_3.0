@@ -8,15 +8,15 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def index_chart_maker(df):
-    df = df.reset_index(drop=True)          # df index 초기화 작업(오류 방지)
+def index_chart_maker(index_df):
+    index_df = index_df.reset_index(drop=True)          # index_df index 초기화 작업(오류 방지)
 
     # ---------------------------------
     # 그래프 생성
     # ---------------------------------
     fig, ax = plt.subplots(figsize=(16, 9))
 
-    x = np.arange(len(df))
+    x = np.arange(len(index_df))
 
     #-----------------------------------------------------
     # 축 설정
@@ -48,11 +48,11 @@ def index_chart_maker(df):
     )
 
     # 양 옆 여백 조금 주기
-    ax.set_xlim(-1, len(df) - 0.5)
+    ax.set_xlim(-1, len(index_df) - 0.5)
 
     # 위 아래 여백 조금 주기
-    price_min = df["low"].min()
-    price_max = df["high"].max()
+    price_min = index_df["low"].min()
+    price_max = index_df["high"].max()
 
     margin = (price_max - price_min) * 0.05
     
@@ -78,7 +78,7 @@ def index_chart_maker(df):
     #-----------------------------------------------------
     ax.plot(
         x,
-        df["close"],
+        index_df["close"],
         linewidth=1
     )
     
@@ -92,7 +92,7 @@ def index_chart_maker(df):
     last_week = None
 
     if len(x) > 900:
-        for i, row in df.iterrows():
+        for i, row in index_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -104,7 +104,7 @@ def index_chart_maker(df):
                 week_count += 1
 
     elif len(x) > 240:
-        for i, row in df.iterrows():
+        for i, row in index_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -128,7 +128,7 @@ def index_chart_maker(df):
                 week_count += 1
 
     else:
-        for i, row in df.iterrows():
+        for i, row in index_df.iterrows():
 
             week = row["date"].isocalendar().week
         
@@ -148,11 +148,11 @@ def index_chart_maker(df):
     # 최고가 최저가 표시
     #-----------------------------------------------------
     # 최고가 / 최저가
-    high_idx = df["close"].idxmax()
-    low_idx = df["close"].idxmin()
+    high_idx = index_df["close"].idxmax()
+    low_idx = index_df["close"].idxmin()
     
-    high_price = df.loc[high_idx, "high"]
-    low_price = df.loc[low_idx, "low"]
+    high_price = index_df.loc[high_idx, "high"]
+    low_price = index_df.loc[low_idx, "low"]
     x_offset = len(x) * 0.007
     y_offset = (price_max - price_min) * 0.01
 
@@ -213,12 +213,12 @@ def index_chart_maker(df):
     #-----------------------------------------------------
     # 현재가 표시
     #-----------------------------------------------------
-    last_close = df.iloc[-1]["close"]
+    last_close = index_df.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
     current_color = (
         "#e53935"
-        if last_close >= df.iloc[-1]["open"]
+        if last_close >= index_df.iloc[-1]["open"]
         else "#1565c0"
     )
 
