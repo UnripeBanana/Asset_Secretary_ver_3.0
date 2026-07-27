@@ -20,4 +20,4 @@ from collector.chart_maker.index_candle_chart_maker import index_candle_chart_ma
 
 
 # 작업 중
-price_chart_maker()
+price_chart_maker(price_data_reader("2025-07-20", "2026-07-24", code))
