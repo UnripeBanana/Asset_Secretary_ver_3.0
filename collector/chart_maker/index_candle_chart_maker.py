@@ -7,14 +7,14 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def domestic_stock_chart_maker(stock, name):
-    stock = stock.reset_index(drop=True)          # stock index 초기화 작업(오류 방지)
+def index_candle_chart_maker(index_df):
+    index_df = index_df.reset_index(drop=True)          # index_df index 초기화 작업(오류 방지)
 
     #-----------------------------------------------------
     # chart 사이즈 설정
     #-----------------------------------------------------
     fig, ax = plt.subplots(figsize=(16, 9))
-    x = np.arange(len(stock))
+    x = np.arange(len(index_df))
 
     #-----------------------------------------------------
     # 축 설정
@@ -46,11 +46,11 @@ def domestic_stock_chart_maker(stock, name):
     )
     
     # 양 옆 여백 조금 주기
-    ax.set_xlim(-1, len(stock) - 0.5)
+    ax.set_xlim(-1, len(index_df) - 0.5)
     
     # 위 아래 여백 조금 주기
-    price_min = stock["low"].min()
-    price_max = stock["high"].max()
+    price_min = index_df["low"].min()
+    price_max = index_df["high"].max()
     
     margin = (price_max - price_min) * 0.05
     
@@ -76,16 +76,16 @@ def domestic_stock_chart_maker(stock, name):
     # 캔들차트 생성
     #-----------------------------------------------------
     # 최고가 / 최저가
-    high_idx = stock["high"].idxmax()
-    low_idx = stock["low"].idxmin()
+    high_idx = index_df["high"].idxmax()
+    low_idx = index_df["low"].idxmin()
     
-    high_price = stock.loc[high_idx, "high"]
-    low_price = stock.loc[low_idx, "low"]
+    high_price = index_df.loc[high_idx, "high"]
+    low_price = index_df.loc[low_idx, "low"]
 
     non_move_plan_b = (high_price - low_price)*0.002
 
 
-    for i, row in stock.iterrows():
+    for i, row in index_df.iterrows():
         open_price = row["open"]
         high_price = row["high"]
         low_price = row["low"]
@@ -125,15 +125,15 @@ def domestic_stock_chart_maker(stock, name):
     #-----------------------------------------------------
     # 이동평균선
     #-----------------------------------------------------
-    stock["MA5"] = stock["close"].rolling(5).mean()
-    stock["MA20"] = stock["close"].rolling(20).mean()
-    stock["MA60"] = stock["close"].rolling(60).mean()
-    stock["MA120"] = stock["close"].rolling(120).mean()
+    index_df["MA5"] = index_df["close"].rolling(5).mean()
+    index_df["MA20"] = index_df["close"].rolling(20).mean()
+    index_df["MA60"] = index_df["close"].rolling(60).mean()
+    index_df["MA120"] = index_df["close"].rolling(120).mean()
     
-    ax.plot(x, stock["MA5"], color="green", linewidth=1.2, label="5")
-    ax.plot(x, stock["MA20"], color="red", linewidth=1.2, label="20")
-    ax.plot(x, stock["MA60"], color="orange", linewidth=1.2, label="60")
-    ax.plot(x, stock["MA120"], color="purple", linewidth=1.2, label="120")
+    ax.plot(x, index_df["MA5"], color="green", linewidth=1.2, label="5")
+    ax.plot(x, index_df["MA20"], color="red", linewidth=1.2, label="20")
+    ax.plot(x, index_df["MA60"], color="orange", linewidth=1.2, label="60")
+    ax.plot(x, index_df["MA120"], color="purple", linewidth=1.2, label="120")
     
     ax.text(0.01, 0.98, "MA", transform=ax.transAxes,
         va="top", fontsize=10, color="black")
@@ -156,7 +156,7 @@ def domestic_stock_chart_maker(stock, name):
     last_week = None
 
     if len(x) > 900:
-        for i, row in stock.iterrows():
+        for i, row in index_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -168,7 +168,7 @@ def domestic_stock_chart_maker(stock, name):
                 week_count += 1
 
     elif len(x) > 240:
-        for i, row in stock.iterrows():
+        for i, row in index_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -180,7 +180,7 @@ def domestic_stock_chart_maker(stock, name):
                 week_count += 1
 
     elif len(x) > 80:
-        for i, row in stock.iterrows():
+        for i, row in index_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -192,7 +192,7 @@ def domestic_stock_chart_maker(stock, name):
                 week_count += 1
 
     else:
-        for i, row in stock.iterrows():
+        for i, row in index_df.iterrows():
 
             week = row["date"].isocalendar().week
         
@@ -212,11 +212,11 @@ def domestic_stock_chart_maker(stock, name):
     # 최고가 최저가 표시
     #-----------------------------------------------------
     # 최고가 / 최저가
-    high_idx = stock["high"].idxmax()
-    low_idx = stock["low"].idxmin()
+    high_idx = index_df["high"].idxmax()
+    low_idx = index_df["low"].idxmin()
     
-    high_price = stock.loc[high_idx, "high"]
-    low_price = stock.loc[low_idx, "low"]
+    high_price = index_df.loc[high_idx, "high"]
+    low_price = index_df.loc[low_idx, "low"]
     x_offset = len(x) * 0.007
     y_offset = (price_max - price_min) * 0.02
 
@@ -277,12 +277,12 @@ def domestic_stock_chart_maker(stock, name):
     #-----------------------------------------------------
     # 현재가 표시
     #-----------------------------------------------------
-    last_close = stock.iloc[-1]["close"]
+    last_close = index_df.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
     current_color = (
         "#e53935"
-        if last_close >= stock.iloc[-1]["open"]
+        if last_close >= index_df.iloc[-1]["open"]
         else "#1565c0"
     )
 
@@ -328,14 +328,14 @@ def domestic_stock_chart_maker(stock, name):
     #-----------------------------------------------------
     plt.tight_layout()
 
-    ticker = stock.iloc[1]["ticker"]
-    
-    title = f"data/image/domestic_stock/{name}_{ticker}.png"
-    
+    name = index_df.iloc[0]["code"]
+
+    title = f"data/image/market_index/{name}.png"
+
     plt.savefig(
         title,
         dpi=300,
         bbox_inches="tight"
     )
-    
+
     plt.close(fig)
