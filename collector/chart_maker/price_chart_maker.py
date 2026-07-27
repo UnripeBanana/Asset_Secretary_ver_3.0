@@ -278,9 +278,9 @@ def index_chart_maker(price_df):
         "M04020000": "KRW_Gold",
         "GCcv1": "International_Gold",
         "SIcv1": "Silver",
-        "CLcv1": "WTI Crude Oil",
-        "LCOcv1": "Brent Crude Oil",
-        "NGcv1": "Natural Gas",
+        "CLcv1": "WTI_Crude_Oil",
+        "LCOcv1": "Brent_Crude_Oil",
+        "NGcv1": "Natural_Gas",
         "CMCU0": "Copper"
     }
     
