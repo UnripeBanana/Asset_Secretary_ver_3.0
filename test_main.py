@@ -18,4 +18,5 @@ from collector.chart_maker.index_candle_chart_maker import index_candle_chart_ma
 
 # 작업 중
 index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "KOSPI"))
+index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "NASDAQ"))
 #domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
