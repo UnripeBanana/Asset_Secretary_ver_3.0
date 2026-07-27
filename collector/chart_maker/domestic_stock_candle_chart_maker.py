@@ -277,8 +277,8 @@ def domestic_stock_candle_chart_maker(stock, name):
     #-----------------------------------------------------
     # 현재가 표시
     #-----------------------------------------------------
-    last_close = price_df.iloc[-2]["close"]
-    current_close = price_df.iloc[-1]["close"]
+    last_close = stock.iloc[-2]["close"]
+    current_close = stock.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
     current_color = "#e53935" if current_close >= last_close else "#1565c0"
