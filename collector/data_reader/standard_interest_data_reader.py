@@ -6,14 +6,21 @@
 
 import requests
 import pandas as pd
-from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
+#from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
 
-def standard_interest_data_reader(start, end, category, ticker, name, currency):
-    start = pd.to_datetime(str(start), format="%Y%m%d")
-    end = pd.to_datetime(str(end), format="%Y%m%d")
+def price_data_reader(start, end, code):
+    start = pd.to_datetime(str(start))
+    end = pd.to_datetime(str(end))
 
     page = 1
     dfs = []
+
+    code_trans = {
+        "Korea_Rate": "KOR",
+        "Fed_Rate": "USA"
+    }
+
+    code = code_trans[code]
     
     while True:
         url = (
@@ -30,12 +37,12 @@ def standard_interest_data_reader(start, end, category, ticker, name, currency):
         
         response = requests.get(url, headers=headers)
         
-        standard_interest_data = response.json()
+        price_data = response.json()
 
-        if not standard_interest_data.get("result"):
+        if not price_data.get("result"):
             break    
 
-        page_df = make_market_index_df(standard_interest_data, ticker, name)
+        page_df = price_data_processor(price_data, code)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
@@ -53,19 +60,17 @@ def standard_interest_data_reader(start, end, category, ticker, name, currency):
     
         page += 1        
 
-    standard_interest_data = pd.concat(dfs, ignore_index=True)
+    price_data = pd.concat(dfs, ignore_index=True)
 
-    standard_interest_data["currency"] = currency
-
-    standard_interest_data = standard_interest_data[
-        (standard_interest_data["date"] >= start) &
-        (standard_interest_data["date"] <= end)
+    price_data = price_data[
+        (price_data["date"] >= start) &
+        (price_data["date"] <= end)
     ]
     
-    standard_interest_data = (
-        standard_interest_data
+    price_data = (
+        price_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return standard_interest_data
+    return price_data  # ["date", "code", "close", "change", "rate"]
