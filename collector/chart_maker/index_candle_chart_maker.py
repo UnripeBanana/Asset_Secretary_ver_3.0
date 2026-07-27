@@ -330,7 +330,7 @@ def index_candle_chart_maker(index_df):
 
     name = index_df.iloc[0]["code"]
 
-    title = f"data/image/market_index/{name}.png"
+    title = f"data/image/market_index/{name}_candle_chart.png"
 
     plt.savefig(
         title,
