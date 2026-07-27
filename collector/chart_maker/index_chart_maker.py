@@ -269,7 +269,7 @@ def index_chart_maker(df):
 
     name = df.iloc[0]["code"]
 
-    title = f"data/image/market_index/{name}.png"
+    title = f"data/image/market_index/{name}_chart.png"
     
     plt.savefig(
         title,
