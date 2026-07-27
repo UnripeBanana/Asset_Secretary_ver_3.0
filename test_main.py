@@ -12,6 +12,7 @@ from collector.chart_maker.index_candle_chart_maker import index_candle_chart_ma
 
 
 # 작업 완료
+#domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
 #domestic_stock_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
 
 #index_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "KOSPI"))                # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
@@ -19,4 +20,4 @@ from collector.chart_maker.index_candle_chart_maker import index_candle_chart_ma
 
 
 # 작업 중
-domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
+
