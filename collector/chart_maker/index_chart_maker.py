@@ -213,26 +213,23 @@ def index_chart_maker(index_df):
     #-----------------------------------------------------
     # 현재가 표시
     #-----------------------------------------------------
-    last_close = index_df.iloc[-1]["close"]
+    last_close = price_df.iloc[-2]["close"]
+    current_close = price_df.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
-    current_color = (
-        "#e53935"
-        if last_close >= index_df.iloc[-1]["open"]
-        else "#1565c0"
-    )
+    current_color = "#e53935" if current_close >= last_close else "#1565c0"
 
     transform = blended_transform_factory(
         ax.transAxes,   # x는 축 좌표
         ax.transData    # y는 데이터 좌표
     )
 
-    triangle_height = (price_max - price_min) * 0.015
+    triangle_height = (price_max - price_min) * 0.014
     triangle = Polygon(
         [
-            [0.9998, last_close],
-            [1.006, last_close + triangle_height],
-            [1.006, last_close - triangle_height]
+            [0.9998, current_close],
+            [1.006, current_close + triangle_height],
+            [1.006, current_close - triangle_height]
         ],
         closed=True,
         facecolor=current_color,
@@ -245,8 +242,8 @@ def index_chart_maker(index_df):
 
     ax.text(
         1.0075,                 # 축의 오른쪽 바깥 0.75%
-        last_close,             # 실제 현재가
-        f"{last_close:,}",
+        current_close,             # 실제 현재가
+        f"{current_close:,}",
         transform=transform,
         ha="left",
         va="center",
