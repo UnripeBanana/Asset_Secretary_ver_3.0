@@ -7,7 +7,7 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def domestick_stock_chart_maker(stock_df, name):
+def domestic_stock_chart_maker(stock_df, name):
     stock_df = stock_df.reset_index(drop=True)          # stock_df index 초기화 작업(오류 방지)
 
     # ---------------------------------
