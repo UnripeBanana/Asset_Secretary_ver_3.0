@@ -19,10 +19,13 @@ def index_data_reader(start, end, code):
     page = 1
     dfs = []
 
+    codes = {"NASDAQ": ""}
+
     if code in ["KOSPI", "KOSDAQ"]:
         is_foreign = "domestic"
     else:
         is_foreign = "foreign"
+        
 
     # https://m.stock.naver.com/front-api/stock/domestic/index/price/list?code=KOSPI&page=1&pageSize=10
     while True:
