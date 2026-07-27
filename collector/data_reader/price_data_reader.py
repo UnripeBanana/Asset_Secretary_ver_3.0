@@ -134,4 +134,4 @@ def price_data_reader(start, end, code):
         .reset_index(drop=True)
     )
 
-    return price_data
+    return price_data  # ["date", "code", "close", "change", "rate"]
