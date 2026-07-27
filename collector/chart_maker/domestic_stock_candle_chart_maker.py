@@ -330,7 +330,7 @@ def domestic_stock_candle_chart_maker(stock, name):
 
     ticker = stock.iloc[1]["ticker"]
     
-    title = f"data/image/domestic_stock/{name}_{ticker}.png"
+    title = f"data/image/domestic_stock/{name}_{ticker}_candle_chart.png"
     
     plt.savefig(
         title,
