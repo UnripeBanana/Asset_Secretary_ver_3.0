@@ -14,21 +14,11 @@ from collector.chart_maker.index_candle_chart_maker import index_candle_chart_ma
 # 작업 완료
 #domestic_stock_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
 
-#index_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "KOSPI"))
+index_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "KOSPI"))                # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
+index_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "S&P_500"))
 index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "KOSPI"))
 index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-24", "NASDAQ"))
-"""
-사용 가능한 코드 모음
-    code_trans = {
-        "KOSPI": "KOSPI",
-        "KOSDAQ": "KOSDAQ",
-        "KOSPI_200": "KPI200",
-        "NASDAQ": ".IXIC",
-        "S&P_500": ".INX",
-        "Dow_Jones": ".DJI",
-        "VIX": ".VIX"
-    }
-"""
+
 
 # 작업 중
 #domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-24", "005930"), "삼성전자")
