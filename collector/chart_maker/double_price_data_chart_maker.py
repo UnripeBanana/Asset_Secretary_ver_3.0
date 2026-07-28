@@ -1,0 +1,1 @@
+def double_price_data_chart_maker():
