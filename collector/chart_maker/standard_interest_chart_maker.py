@@ -218,7 +218,7 @@ def standard_interest_chart_maker(standard_interest_df):
     current_close = standard_interest_df.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
-    current_color = "#e53935" if current_close >= last_close else "#1565c0"
+    current_color = "#e53935" if current_close > last_close else "#1565c0" if current_close > last_close else "#000000"
 
     transform = blended_transform_factory(
         ax.transAxes,   # x는 축 좌표
