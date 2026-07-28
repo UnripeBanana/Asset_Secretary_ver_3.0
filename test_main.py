@@ -30,4 +30,4 @@ from collector.chart_maker.standard_interest_chart_maker import standard_interes
 #-------------------------------------------
 # 작업 중
 #-------------------------------------------
-standard_interest_chart_maker(standard_interest_data_reader("2000-04-27", "2026-07-27", "Korea_Rate"))  #<- 기준 금리 작업 중임. 미국 금리의 경우 데이터에 "-"가 있어서 처리가 안됨. 해결해야 함.
+standard_interest_chart_maker(standard_interest_data_reader("2000-04-27", "2026-07-27", "Fed_Rate"))  #<- 기준 금리 작업 중임. 미국 금리의 경우 데이터에 "-"가 있어서 처리가 안됨. 해결해야 함.
