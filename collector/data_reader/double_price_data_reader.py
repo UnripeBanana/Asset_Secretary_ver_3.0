@@ -1,1 +1,2 @@
-double_price_data_chart_maker
+def double_price_data_reader():
+    
