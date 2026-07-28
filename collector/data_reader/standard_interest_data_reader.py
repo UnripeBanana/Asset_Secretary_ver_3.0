@@ -6,7 +6,7 @@
 
 import requests
 import pandas as pd
-#from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
+from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
 
 def standard_interest_data_reader(start, end, code):
     start = pd.to_datetime(str(start))
