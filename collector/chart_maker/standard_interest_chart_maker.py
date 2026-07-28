@@ -8,15 +8,15 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def price_chart_maker(price_df):
-    price_df = price_df.reset_index(drop=True)          # price_df index 초기화 작업(오류 방지)
+def standard_interest_chart_maker(standard_interest_df):
+    standard_interest_df = standard_interest_df.reset_index(drop=True)          # standard_interest_df index 초기화 작업(오류 방지)
 
     # ---------------------------------
     # 그래프 생성
     # ---------------------------------
     fig, ax = plt.subplots(figsize=(16, 9))
 
-    x = np.arange(len(price_df))
+    x = np.arange(len(standard_interest_df))
 
     #-----------------------------------------------------
     # 축 설정
@@ -48,11 +48,11 @@ def price_chart_maker(price_df):
     )
 
     # 양 옆 여백 조금 주기
-    ax.set_xlim(-1, len(price_df) - 0.5)
+    ax.set_xlim(-1, len(standard_interest_df) - 0.5)
 
     # 위 아래 여백 조금 주기
-    price_min = price_df["close"].min()
-    price_max = price_df["close"].max()
+    price_min = standard_interest_df["close"].min()
+    price_max = standard_interest_df["close"].max()
 
     margin = (price_max - price_min) * 0.05
     
@@ -78,7 +78,7 @@ def price_chart_maker(price_df):
     #-----------------------------------------------------
     ax.plot(
         x,
-        price_df["close"],
+        standard_interest_df["close"],
         linewidth=1,
         drawstyle="steps-post"
     )
@@ -93,7 +93,7 @@ def price_chart_maker(price_df):
     last_week = None
 
     if len(x) > 90:
-        for i, row in price_df.iterrows():
+        for i, row in standard_interest_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -105,7 +105,7 @@ def price_chart_maker(price_df):
                 week_count += 1
 
     elif len(x) > 24:
-        for i, row in price_df.iterrows():
+        for i, row in standard_interest_df.iterrows():
             
             week = row["date"].isocalendar().week
         
@@ -129,7 +129,7 @@ def price_chart_maker(price_df):
                 week_count += 1
 
     else:
-        for i, row in price_df.iterrows():
+        for i, row in standard_interest_df.iterrows():
 
             week = row["date"].isocalendar().week
         
@@ -149,11 +149,11 @@ def price_chart_maker(price_df):
     # 최고가 최저가 표시
     #-----------------------------------------------------
     # 최고가 / 최저가
-    high_idx = price_df["close"].idxmax()
-    low_idx = price_df["close"].idxmin()
+    high_idx = standard_interest_df["close"].idxmax()
+    low_idx = standard_interest_df["close"].idxmin()
     
-    high_price = price_df.loc[high_idx, "close"]
-    low_price = price_df.loc[low_idx, "close"]
+    high_price = standard_interest_df.loc[high_idx, "close"]
+    low_price = standard_interest_df.loc[low_idx, "close"]
     x_offset = len(x) * 0.007
     y_offset = (price_max - price_min) * 0.01
 
@@ -214,8 +214,8 @@ def price_chart_maker(price_df):
     #-----------------------------------------------------
     # 현재가 표시
     #-----------------------------------------------------
-    last_close = price_df.iloc[-2]["close"]
-    current_close = price_df.iloc[-1]["close"]
+    last_close = standard_interest_df.iloc[-2]["close"]
+    current_close = standard_interest_df.iloc[-1]["close"]
     
     # 당일 상승/하락에 따라 색상 결정
     current_color = "#e53935" if current_close >= last_close else "#1565c0"
@@ -270,13 +270,13 @@ def price_chart_maker(price_df):
         "USA": "Fed_Rate"
     }
     
-    name = code_trans[price_df.iloc[0]["code"]]
+    name = code_trans[standard_interest_df.iloc[0]["code"]]
 
     title = f"data/image/price/{name}_chart.png"
-    """
+
     plt.savefig(
         title,
         dpi=300,
         bbox_inches="tight"
     )
-    """
+
