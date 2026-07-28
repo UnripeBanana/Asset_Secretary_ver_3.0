@@ -15,6 +15,12 @@ def standard_interest_data_processor(data, code):
         "fluctuations": "change"
     })
 
+    if standard_interest_df["close"][0] in ["-", None]:
+        standard_interest_df["date"] = standard_interest_df["date"][1:]
+        standard_interest_df["close"] = standard_interest_df["close"][1:]
+        standard_interest_df["change"] = standard_interest_df["change"][1:]
+        
+
     # str -> int
     standard_interest_df["close"] = (
         standard_interest_df["close"]
@@ -38,8 +44,4 @@ def standard_interest_data_processor(data, code):
     ]
 
     # 날짜 순으로 정렬 후 return
-    return (
-        standard_interest_df
-        .sort_values("date")
-        .reset_index(drop=True)
-    )
+    return (standard_interest_df.sort_values("date").reset_index(drop=True))
