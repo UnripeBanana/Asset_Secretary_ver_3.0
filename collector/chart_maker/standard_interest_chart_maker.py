@@ -272,11 +272,11 @@ def standard_interest_chart_maker(standard_interest_df):
     
     name = code_trans[standard_interest_df.iloc[0]["code"]]
 
-    title = f"data/image/price/{name}_chart.png"
-    """
+    title = f"data/image/standard_interest/{name}_chart.png"
+
     plt.savefig(
         title,
         dpi=300,
         bbox_inches="tight"
     )
-    """
+
