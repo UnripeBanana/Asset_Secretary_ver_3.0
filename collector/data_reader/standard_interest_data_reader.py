@@ -6,9 +6,9 @@
 
 import requests
 import pandas as pd
-#from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
+from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
 
-def price_data_reader(start, end, code):
+def standard_interest_data_reader(start, end, code):
     start = pd.to_datetime(str(start))
     end = pd.to_datetime(str(end))
 
@@ -37,12 +37,12 @@ def price_data_reader(start, end, code):
         
         response = requests.get(url, headers=headers)
         
-        price_data = response.json()
+        standard_interest_data = response.json()
 
-        if not price_data.get("result"):
+        if not standard_interest_data.get("result"):
             break    
 
-        page_df = price_data_processor(price_data, code)
+        page_df = standard_interest_data_processor(standard_interest_data, code)
 
         page_df["date"] = (
             pd.to_datetime(page_df["date"], utc=True)
@@ -60,17 +60,17 @@ def price_data_reader(start, end, code):
     
         page += 1        
 
-    price_data = pd.concat(dfs, ignore_index=True)
+    standard_interest_data = pd.concat(dfs, ignore_index=True)
 
-    price_data = price_data[
-        (price_data["date"] >= start) &
-        (price_data["date"] <= end)
+    standard_interest_data = standard_interest_data[
+        (standard_interest_data["date"] >= start) &
+        (standard_interest_data["date"] <= end)
     ]
     
-    price_data = (
-        price_data
+    standard_interest_data = (
+        standard_interest_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return price_data  # ["date", "code", "close", "change", "rate"]
+    return standard_interest_data  # ["date", "code", "close", "change", "rate"]
