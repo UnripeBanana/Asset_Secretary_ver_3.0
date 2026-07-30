@@ -31,7 +31,7 @@ from collector.chart_maker.double_price_data_chart_maker import double_price_dat
 # standard_interest_chart_maker(standard_interest_data_reader("2000-04-27", "2026-07-27", "Fed_Rate"))
 # 입력 가능한 항목 : "Korea_Rate", "Fed_Rate"
 
-#double_price_data_chart_maker(double_price_data_reader("2026-03-20", "2026-07-27", "US2Y", "KR3Y"))
+double_price_data_chart_maker(double_price_data_reader("2023-03-20", "2026-07-27", "Dolar_Index", "International_Gold"))
 # 입력 가능한 항목 : "US2Y", "US10Y", "US30Y", "KR3Y", "KR10Y", "KR30Y", "USD-KRW", "Dolar_Index", "USD-JPY", "USD-EUR", 
 #                   "KRW_Gold", "International_Gold", "Silver", "WTI_Crude_Oil", "Brent_Crude_Oil", "Natural_Gas", "Copper"
 
