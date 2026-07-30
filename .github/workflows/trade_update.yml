@@ -1,0 +1,37 @@
+name: Update Trade
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+concurrency:
+  group: repository-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - run: python3 trade_main.py
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DOMESTIC_STOCK_INFO_DB_ID: ${{ secrets.NOTION_DOMESTIC_STOCK_INFO_DB_ID }}
+          NOTION_NET_PROFIT_DB_ID: ${{ secrets.NOTION_NET_PROFIT_DB_ID }}
+          NOTION_DOMESTIC_STOCK_TRADE_DB_ID: ${{ secrets.NOTION_DOMESTIC_STOCK_TRADE_DB_ID }}
+          NOTION_DOMESTIC_STOCK_DIVIDEND_DB_ID: ${{ secrets.NOTION_DOMESTIC_STOCK_DIVIDEND_DB_ID }}
+          NOTION_KRX_GOLD_INFO_DB_ID: ${{ secrets.NOTION_KRX_GOLD_INFO_DB_ID }}
+          NOTION_KRX_GOLD_TRADE_DB_ID: ${{ secrets.NOTION_KRX_GOLD_TRADE_DB_ID }}
+          NOTION_DOMESTIC_BOND_ETF_TRADE_DB_ID: ${{ secrets.NOTION_DOMESTIC_BOND_ETF_TRADE_DB_ID }}
+          NOTION_DOMESTIC_BOND_ETF_INFO_DB_ID: ${{ secrets.NOTION_DOMESTIC_BOND_ETF_INFO_DB_ID }}
