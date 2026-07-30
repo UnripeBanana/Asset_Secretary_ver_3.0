@@ -36,10 +36,10 @@ def price_data_reader(start, end, code):
         "KR3Y": "KR3YT%3DRR",
         "KR10Y": "KR10YT%3DRR",
         "KR30Y": "KR30YT%3DRR",
-        "USD/KRW": "FX_USDKRW",
+        "USD-KRW": "FX_USDKRW",
         "Dolar_Index": ".DXY",
-        "USD/JPY": "USDJPY",
-        "USD/EUR": "USDEUR",
+        "USD-JPY": "USDJPY",
+        "USD-EUR": "USDEUR",
         "KRW_Gold": "M04020000",
         "International_Gold": "GCcv1",
         "Silver": "SIcv1",
@@ -61,13 +61,13 @@ def price_data_reader(start, end, code):
         raise ValueError(f"Invalid code: {code}")
 
     currency_list = {
-        "US2YT%3DRR": "%", 
-        "US10YT%3DRR": "%", 
-        "US30YT%3DRR": "%", 
-        "KR3YT%3DRR": "%", 
-        "KR10YT%3DRR": "%", 
+        "US2YT%3DRR": "%",
+        "US10YT%3DRR": "%",
+        "US30YT%3DRR": "%",
+        "KR3YT%3DRR": "%",
+        "KR10YT%3DRR": "%",
         "KR30YT%3DRR": "%",
-        "M04020000": "원/g",
+        "M04020000": "KRW/g",
         "GCcv1": "USD/OZS",
         "SIcv1": "USD/OZS",
         "CLcv1": "USD/BBL",
@@ -80,7 +80,7 @@ def price_data_reader(start, end, code):
         "USDEUR": "USD/EUR"
     }
 
-    
+
     while True:
         url = (
             "https://m.stock.naver.com/front-api/marketIndex/prices"
@@ -88,18 +88,18 @@ def price_data_reader(start, end, code):
             f"&reutersCode={code}"
             f"&page={page}"
         )
-        
+
         headers = {
             "User-Agent": "Mozilla/5.0",
             "Referer": "https://m.stock.naver.com/"
         }
-        
+
         response = requests.get(url, headers=headers)
-        
+
         price_data = response.json()
 
         if not price_data.get("result"):
-            break    
+            break
 
         page_df = price_data_processor(price_data, code)
 
@@ -110,14 +110,14 @@ def price_data_reader(start, end, code):
         page_df["date"] = pd.to_datetime(page_df["date"])
 
         dfs.append(page_df)
-        
+
         oldest = page_df["date"].min()
 
-        
+
         if oldest <= start:
             break
-    
-        page += 1        
+
+        page += 1
 
     price_data = pd.concat(dfs, ignore_index=True)
 
@@ -127,11 +127,11 @@ def price_data_reader(start, end, code):
         (price_data["date"] >= start) &
         (price_data["date"] <= end)
     ]
-    
+
     price_data = (
         price_data
         .sort_values("date")
         .reset_index(drop=True)
     )
 
-    return price_data  # ["date", "code", "close", "change", "rate"]
+    return price_data  # ["date", "code", "close", "change", "rate", "currency"]
