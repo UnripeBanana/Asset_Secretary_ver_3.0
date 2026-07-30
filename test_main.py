@@ -35,4 +35,4 @@ from collector.chart_maker.double_price_data_chart_maker import double_price_dat
 #-------------------------------------------
 # 작업 중
 #-------------------------------------------
-double_price_data_chart_maker(double_price_data_reader("2025-07-20", "2026-07-27", "Dolar_Index", "International_Gold"))
+double_price_data_chart_maker(double_price_data_reader("2026-03-20", "2026-07-27", "US2Y", "KR3Y"))
