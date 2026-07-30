@@ -1,4 +1,4 @@
-name: Data Check
+name: Test
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
       - name: Install packages
         run: pip install -r requirements.txt
 
-      - name: Save History
+      - name: Run Test_main
         run: python3 test_main.py
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
