@@ -1,5 +1,6 @@
 from collector.data_reader.index_data_reader import index_data_reader
 from collector.data_reader.price_data_reader import price_data_reader
+from datetime import datetime, timedelta
 from notion.client import notion
 
 def main_page_chart_updator(PAGE_ID):
@@ -8,21 +9,25 @@ def main_page_chart_updator(PAGE_ID):
     #-----------------------------------------------------------------------------------
     # 1. 지표 데이터 일괄 수집 및 데이터 세팅
     #-----------------------------------------------------------------------------------
+
+    today = datetime.now().strftime("%Y-%m-%d")
+    yesterday = today - timedelta(days=1)
+    yesterday_str = yesterday.strftime("%Y-%m-%d")
     
     targets = [
         {
             "title": "KOSPI",
-            "df": index_data_reader("2026-07-30", "2026-07-31", "KOSPI"),
+            "df": index_data_reader(yesterday_str, today, "KOSPI"),
             "chart_url": "https://raw.githubusercontent.com/UnripeBanana/Asset_Secretary_ver_3.0/main/data/image/market_index/KOSPI_chart.png"
         },
         {
             "title": "달러/원 환율",
-            "df": price_data_reader("2026-07-30", "2026-07-31", "USD-KRW"),
+            "df": price_data_reader(yesterday_str, today, "USD-KRW"),
             "chart_url": "https://raw.githubusercontent.com/UnripeBanana/Asset_Secretary_ver_3.0/main/data/image/price/USD-KRW_chart.png"
         },
         {
             "title": "국제금 / 달러 인덱스",
-            "df": price_data_reader("2026-07-30", "2026-07-31", "International_Gold"),
+            "df": price_data_reader(yesterday_str, today, "International_Gold"),
             "chart_url": "https://raw.githubusercontent.com/UnripeBanana/Asset_Secretary_ver_3.0/main/data/image/price/Dolar_Index_X_International_Gold_chart.png"
         }
     ]
