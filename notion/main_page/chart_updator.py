@@ -1,4 +1,5 @@
-
+from collector.data_reader.index_data_reader import index_data_reader
+from collector.data_reader.price_data_reader import price_data_reader
 
 def main_page_chart_updator(PAGE_ID)
     blocks = notion.blocks.children.list(block_id=PAGE_ID)
