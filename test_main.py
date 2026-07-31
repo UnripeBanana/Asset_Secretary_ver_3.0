@@ -24,7 +24,7 @@ from collector.chart_maker.double_price_data_chart_maker import double_price_dat
 #index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-27", "KOSPI"))         
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
-price_chart_maker(price_data_reader("2025-07-20", "2026-07-27", "USD-KRW"))              
+price_chart_maker(price_data_reader("2025-07-20", "2026-07-31", "USD-KRW"))              
 # 입력 가능한 항목 : "US2Y", "US10Y", "US30Y", "KR3Y", "KR10Y", "KR30Y", "USD-KRW", "Dolar_Index", "USD-JPY", "USD-EUR", 
 #                   "KRX_Gold", "International_Gold", "Silver", "WTI_Crude_Oil", "Brent_Crude_Oil", "Natural_Gas", "Copper"
 
