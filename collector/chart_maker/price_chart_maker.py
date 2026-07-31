@@ -275,7 +275,7 @@ def price_chart_maker(price_df):
         ".DXY": "Dolar_Index",
         "USDJPY": "USD-JPY",
         "USDEUR": "USD-EUR",
-        "M04020000": "KRW_Gold",
+        "M04020000": "KRX_Gold",
         "GCcv1": "International_Gold",
         "SIcv1": "Silver",
         "CLcv1": "WTI_Crude_Oil",
