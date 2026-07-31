@@ -40,7 +40,7 @@ def price_data_reader(start, end, code):
         "Dolar_Index": ".DXY",
         "USD-JPY": "USDJPY",
         "USD-EUR": "USDEUR",
-        "KRW_Gold": "M04020000",
+        "KRX_Gold": "M04020000",
         "International_Gold": "GCcv1",
         "Silver": "SIcv1",
         "WTI_Crude_Oil": "CLcv1",
