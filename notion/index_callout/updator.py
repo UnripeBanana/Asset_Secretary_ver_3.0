@@ -1,4 +1,4 @@
-def callout_updator(target):
+def index_callout_updator(target):
 
     df = target["df"]
     close = df["close"].iloc[-1]
