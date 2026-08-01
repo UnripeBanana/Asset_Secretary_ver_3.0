@@ -18,12 +18,12 @@ from notion.index_callout.performer import index_callout_performer
 # 작업 완료
 #-------------------------------------------
 #domestic_stock_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
-domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
+#domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
 
 #index_chart_maker(index_data_reader(90, "KOSPI"))            
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
-index_day_candle_chart_maker(index_data_reader(90, "KOSPI"))         
+#index_day_candle_chart_maker(index_data_reader(90, "KOSPI"))         
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
 
