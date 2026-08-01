@@ -18,11 +18,13 @@ from notion.index_callout.performer import index_callout_performer
 # 작업 완료
 #-------------------------------------------
 #domestic_stock_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
-#domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
+domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
 
 #index_chart_maker(index_data_reader(90, "KOSPI"))            
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
+index_day_candle_chart_maker(index_data_reader(90, "KOSPI"))         
+# 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
 
 #index_callout_performer()
@@ -32,8 +34,7 @@ from notion.index_callout.performer import index_callout_performer
 # 작업 중
 #-------------------------------------------
 
-index_day_candle_chart_maker(index_data_reader(90, "KOSPI"))         
-# 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
+
 
 #price_chart_maker(price_data_reader("2025-07-20", "2026-07-31", "USD-KRW"))              
 # 입력 가능한 항목 : "US2Y", "US10Y", "US30Y", "KR3Y", "KR10Y", "KR30Y", "USD-KRW", "Dolar_Index", "USD-JPY", "USD-EUR", 
