@@ -37,8 +37,10 @@ from notion.index_callout.performer import index_callout_performer
 # 입력 가능한 항목 : "US2Y", "US10Y", "US30Y", "KR3Y", "KR10Y", "KR30Y", "USD-KRW", "Dolar_Index", "USD-JPY", "USD-EUR", 
 #                   "KRX_Gold", "International_Gold", "Silver", "WTI_Crude_Oil", "Brent_Crude_Oil", "Natural_Gas", "Copper"
 
+#index_callout_performer()
+
 
 #-------------------------------------------
 # 작업 중
 #-------------------------------------------
-index_callout_performer()
+
