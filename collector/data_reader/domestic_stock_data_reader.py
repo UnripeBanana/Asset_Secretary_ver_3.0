@@ -59,6 +59,8 @@ def domestic_stock_data_reader(day, ticker):
     domestic_stock_df["날짜"] = pd.to_datetime(domestic_stock_df["날짜"], format="%Y%m%d")
 
     domestic_stock_df["ticker"] = ticker
+
+    domestic_stock_df["day"] = day
     
     domestic_stock_df = domestic_stock_df.rename(columns={
         "날짜": "date",
