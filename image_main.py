@@ -14,9 +14,10 @@ from collector.chart_maker.double_price_data_chart_maker import double_price_dat
 
 from notion.index_callout.performer import index_callout_performer
 from notion.get_all_pages import get_all_pages
+from config.notion import NOTION_DOMESTIC_STOCK_INFO_DB_ID
 
 for day in [90, 365, 365*3, 365*5, 365*10]:
-    for page in get_all_pages():
+    for page in get_all_pages(NOTION_DOMESTIC_STOCK_INFO_DB_ID):
     
         ticker_data = page["properties"]["티커"]["rich_text"]
     
