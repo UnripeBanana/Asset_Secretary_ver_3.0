@@ -7,7 +7,7 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def domestic_stock_candle_chart_maker(stock, name):
+def domestic_stock_day_candle_chart_maker(stock, name):
     stock = stock.reset_index(drop=True)          # stock index 초기화 작업(오류 방지)
 
     #-----------------------------------------------------
