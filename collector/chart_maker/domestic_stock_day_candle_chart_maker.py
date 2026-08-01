@@ -326,13 +326,15 @@ def domestic_stock_day_candle_chart_maker(stock, name):
     plt.tight_layout()
 
     ticker = stock.iloc[1]["ticker"]
+    day = stock.iloc[1]["day"]
     
-    title = f"data/image/domestic_stock/{name}_{ticker}_candle_chart.png"
-    
+    title = f"data/image/domestic_stock/{name}_{ticker}_{day}days_candle_chart.png"
+    plt.show()
+
     plt.savefig(
         title,
         dpi=300,
         bbox_inches="tight"
     )
-    
+
     plt.close(fig)
