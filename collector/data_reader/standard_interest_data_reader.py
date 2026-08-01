@@ -7,10 +7,16 @@
 import requests
 import pandas as pd
 from collector.data_processor.standard_interest_data_processor import standard_interest_data_processor
+from datetime import datetime, timedelta
 
-def standard_interest_data_reader(start, end, code):
-    start = pd.to_datetime(str(start))
-    end = pd.to_datetime(str(end))
+def standard_interest_data_reader(day, code):
+
+    today = datetime.now()
+
+    target_day = today - timedelta(days=day)
+
+    start = target_day
+    end = today
 
     page = 1
     dfs = []
@@ -72,5 +78,7 @@ def standard_interest_data_reader(start, end, code):
         .sort_values("date")
         .reset_index(drop=True)
     )
+
+    standard_interest_data["day"] = day
 
     return standard_interest_data  # ["date", "code", "close", "change", "rate"]
