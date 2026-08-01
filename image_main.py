@@ -17,8 +17,10 @@ from datetime import datetime, timedelta
 today = datetime.now()
 today_str = datetime.now().strftime("%Y-%m-%d")
 
-yesterday = today - timedelta(days=1)
-yesterday_str = yesterday.strftime("%Y-%m-%d")
+three_month_ago = today - timedelta(days=91)
+three_month_ago_str = three_month_ago.strftime("%Y-%m-%d")
+
+
 
 
 
