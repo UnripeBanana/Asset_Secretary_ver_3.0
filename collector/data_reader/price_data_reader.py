@@ -61,8 +61,10 @@ def price_data_reader(day, code):
         category = "bond"
     elif code in ["M04020000", "GCcv1", "SIcv1", "CLcv1", "LCOcv1", "NGcv1", "CMCU0"]:
         category = "metals"
-    elif code in ["FX_USDKRW", ".DXY", "USDJPY", "USDEUR"]:
+    elif code in ["FX_USDKRW", ".DXY"]:
         category = "exchange"
+    elif code in ["USDJPY", "USDEUR"]:
+        category = "exchangeWorld"
     else:
         raise ValueError(f"Invalid code: {code}")
 
