@@ -13,13 +13,24 @@ from collector.chart_maker.standard_interest_chart_maker import standard_interes
 from collector.chart_maker.double_price_data_chart_maker import double_price_data_chart_maker
 
 from notion.index_callout.performer import index_callout_performer
-
-
-domestic_stock_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
-domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
-
+from notion.get_all_pages import get_all_pages
 
 for day in [90, 365, 365*3, 365*5, 365*10]:
+    for page in get_all_pages():
+    
+        ticker_data = page["properties"]["티커"]["rich_text"]
+    
+        if not ticker_data:
+            continue
+    
+        ticker = ticker_data[0]["plain_text"]
+    
+        name_data = page["properties"]["종목"]["title"]
+        name = name_data[0]["text"]["content"]
+    
+        domestic_stock_chart_maker(domestic_stock_data_reader(day, ticker), name)
+        domestic_stock_day_candle_chart_maker(domestic_stock_data_reader(day, ticker), name)
+    
     for index in ["KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"]:
         index_chart_maker(index_data_reader(day, index))
         index_day_candle_chart_maker(index_data_reader(day, index))
