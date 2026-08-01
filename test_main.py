@@ -12,7 +12,7 @@ from collector.chart_maker.price_chart_maker import price_chart_maker
 from collector.chart_maker.standard_interest_chart_maker import standard_interest_chart_maker
 from collector.chart_maker.double_price_data_chart_maker import double_price_data_chart_maker
 
-from notion.main_page.chart_updator import main_page_chart_updator
+from notion.index_callout.performer import index_callout_performer
 
 #-------------------------------------------
 # 작업 완료
@@ -41,4 +41,4 @@ from notion.main_page.chart_updator import main_page_chart_updator
 #-------------------------------------------
 # 작업 중
 #-------------------------------------------
-main_page_chart_updator("3996e5aee08380d2a06be79472dc7a36")
+index_callout_performer()
