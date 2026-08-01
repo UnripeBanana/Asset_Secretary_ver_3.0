@@ -43,4 +43,4 @@ from notion.index_callout.performer import index_callout_performer
 #-------------------------------------------
 # 작업 중
 #-------------------------------------------
-
+domestic_stock_chart_maker(domestic_stock_data_reader(90, "005930"), "삼성전자")
