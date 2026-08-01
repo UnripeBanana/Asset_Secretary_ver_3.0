@@ -36,7 +36,7 @@ from notion.index_callout.performer import index_callout_performer
 
 
 
-#price_chart_maker(price_data_reader("2025-07-20", "2026-07-31", "USD-KRW"))              
+price_chart_maker(price_data_reader(90, "USD-KRW"))              
 # 입력 가능한 항목 : "US2Y", "US10Y", "US30Y", "KR3Y", "KR10Y", "KR30Y", "USD-KRW", "Dolar_Index", "USD-JPY", "USD-EUR", 
 #                   "KRX_Gold", "International_Gold", "Silver", "WTI_Crude_Oil", "Brent_Crude_Oil", "Natural_Gas", "Copper"
 
