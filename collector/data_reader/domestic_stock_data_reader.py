@@ -6,14 +6,21 @@ import requests
 import pandas as pd
 import ast
 import re
+from datetime import datetime, timedelta
 
-def domestic_stock_data_reader(start, end, ticker):
+def domestic_stock_data_reader(day, ticker):
     # start and end input format : "2026-07-25"
     # ticker input format : "005930"
     # using format.. transforming start and end to : "20260725"
-    
-    start = pd.to_datetime(start).strftime("%Y%m%d")
-    end = pd.to_datetime(end).strftime("%Y%m%d")
+
+    today = datetime.now()
+    today_str = datetime.now().strftime("%Y%m%d")
+
+    target_day = today - timedelta(days=day)
+    target_day_str = target_day.strftime("%Y%m%d")
+
+    start = target_day_str
+    end = today_str
     
     url = (
         f"https://m.stock.naver.com/front-api/external/chart/domestic/info"
