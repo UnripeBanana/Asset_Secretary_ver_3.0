@@ -294,3 +294,4 @@ def price_chart_maker(price_df):
         dpi=300,
         bbox_inches="tight"
     )
+    plt.close()
