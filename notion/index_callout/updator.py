@@ -1,3 +1,5 @@
+from notion.client import notion
+
 def index_callout_updator(target):
 
     df = target["df"]
