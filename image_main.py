@@ -12,9 +12,20 @@ from collector.chart_maker.price_chart_maker import price_chart_maker
 from collector.chart_maker.standard_interest_chart_maker import standard_interest_chart_maker
 from collector.chart_maker.double_price_data_chart_maker import double_price_data_chart_maker
 
+from datetime import datetime, timedelta
+
+today = datetime.now()
+today_str = datetime.now().strftime("%Y-%m-%d")
+
+yesterday = today - timedelta(days=1)
+yesterday_str = yesterday.strftime("%Y-%m-%d")
+
+
 
 domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
 domestic_stock_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
+
+
 
 for index in ["KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"]:
     index_chart_maker(index_data_reader("2025-07-20", "2026-07-27", index))                
