@@ -2,6 +2,7 @@ from collector.data_reader.index_data_reader import index_data_reader
 from collector.data_reader.price_data_reader import price_data_reader
 from datetime import datetime, timedelta
 from notion.client import notion
+from notion.index_callout.updator import index_callout_updator
 
 def index_callout_performer():
     #-----------------------------------------------------------------------------------
@@ -35,4 +36,4 @@ def index_callout_performer():
     ]
     
     for target in targets:
-        call_out_updator(target)
+        index_callout_updator(target)
