@@ -462,3 +462,4 @@ def double_price_data_chart_maker(price_df):
         dpi=300,
         bbox_inches="tight"
     )
+    plt.close(fig)
