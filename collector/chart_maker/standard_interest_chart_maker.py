@@ -95,9 +95,9 @@ def standard_interest_chart_maker(standard_interest_df):
     # 2. 데이터 기간(날짜) 차이에 따라 포맷 자동 지정
     date_range_days = (standard_interest_df["date"].max() - standard_interest_df["date"].min()).days
     
-    if date_range_days > 1500:        # 3년 초과 -> 연도만
+    if date_range_days > 4500:        # 3년 초과 -> 연도만
         date_format = "%Y"
-    elif date_range_days > 900:           # 3개월 초과 -> 연-월
+    elif date_range_days > 2700:           # 3개월 초과 -> 연-월
         date_format = "%Y-%m"
     else:                                # 3개월 이하 -> 월-일
         date_format = "%m-%d"
