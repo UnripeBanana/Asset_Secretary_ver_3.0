@@ -39,7 +39,7 @@ from notion.index_callout.performer import index_callout_performer
 #-------------------------------------------
 
 
-#standard_interest_chart_maker(standard_interest_data_reader("2000-04-27", "2026-07-27", "Fed_Rate"))
+standard_interest_chart_maker(standard_interest_data_reader(365*5, "Fed_Rate"))
 # 입력 가능한 항목 : "Korea_Rate", "Fed_Rate"
 
 #double_price_data_chart_maker(double_price_data_reader("2023-03-20", "2026-07-27", "Dolar_Index", "USD-KRW"))
