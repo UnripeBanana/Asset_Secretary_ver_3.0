@@ -5,9 +5,9 @@ from collector.data_reader.standard_interest_data_reader import standard_interes
 from collector.data_reader.double_price_data_reader import double_price_data_reader
 
 from collector.chart_maker.domestic_stock_chart_maker import domestic_stock_chart_maker
-from collector.chart_maker.domestic_stock_candle_chart_maker import domestic_stock_candle_chart_maker
+from collector.chart_maker.domestic_stock_day_candle_chart_maker import domestic_stock_day_candle_chart_maker
 from collector.chart_maker.index_chart_maker import index_chart_maker
-from collector.chart_maker.index_candle_chart_maker import index_candle_chart_maker
+from collector.chart_maker.index_day_candle_chart_maker import index_day_candle_chart_maker
 from collector.chart_maker.price_chart_maker import price_chart_maker
 from collector.chart_maker.standard_interest_chart_maker import standard_interest_chart_maker
 from collector.chart_maker.double_price_data_chart_maker import double_price_data_chart_maker
@@ -23,7 +23,7 @@ yesterday_str = yesterday.strftime("%Y-%m-%d")
 
 
 domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
-domestic_stock_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
+domestic_stock_day_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
 
 
 
@@ -31,7 +31,7 @@ for index in ["KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", 
     index_chart_maker(index_data_reader("2025-07-20", "2026-07-27", index))                
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
-index_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-27", "KOSPI"))         
+index_day_candle_chart_maker(index_data_reader("2025-07-20", "2026-07-27", "KOSPI"))         
 # 입력 가능한 항목 : "KOSPI", "KOSDAQ", "KOSPI_200", "NASDAQ", "S&P_500", "Dow_Jones", "VIX"
 
 price_chart_maker(price_data_reader("2025-07-20", "2026-07-31", "USD-KRW"))              
