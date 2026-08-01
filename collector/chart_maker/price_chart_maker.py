@@ -285,8 +285,9 @@ def price_chart_maker(price_df):
     }
     
     name = code_trans[price_df.iloc[0]["code"]]
+    day = price_df.iloc[0]["day"]
 
-    title = f"data/image/price/{name}_chart.png"
+    title = f"data/image/price/{name}_{day}days_chart.png"
 
     plt.savefig(
         title,
