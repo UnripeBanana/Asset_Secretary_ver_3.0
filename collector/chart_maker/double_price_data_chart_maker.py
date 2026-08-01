@@ -453,12 +453,12 @@ def double_price_data_chart_maker(price_df):
 
     name1 = code_trans[merged.iloc[0]["code_1"]]
     name2 = code_trans[merged.iloc[0]["code_2"]]
+    day = merged.iloc[0]["day_1"]
 
-    title = f"data/image/price/{name1}_X_{name2}_chart.png"
+    title = f"data/image/price/{name1}_X_{name2}_{day}days_chart.png"
 
     plt.savefig(
         title,
         dpi=300,
         bbox_inches="tight"
     )
-  
