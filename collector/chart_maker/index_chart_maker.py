@@ -275,9 +275,10 @@ def index_chart_maker(index_df):
     }
     
     name = code_trans[index_df.iloc[0]["code"]]
+    day = index_df.iloc[1]["day"]
 
-    title = f"data/image/market_index/{name}_chart.png"
-    
+    title = f"data/image/market_index/{name}_{day}days_chart.png"
+
     plt.savefig(
         title,
         dpi=300,
