@@ -1,273 +1,74 @@
-from collections import defaultdict
+#[['날짜', '시가', '고가', '저가', '종가', '거래량', '외국인소진율'],
+#["20240213", 74800, 75200, 74400, 75200, 21966745, 54.52]]
+#-> 이런 식으로 구성돼있음
+
+import requests
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-from matplotlib.patches import Polygon
-from matplotlib.transforms import blended_transform_factory
-from matplotlib.ticker import FuncFormatter
+import ast
+import re
+from datetime import datetime, timedelta
 
-def domestic_stock_chart_maker(stock_df, name):
-    stock_df = stock_df.reset_index(drop=True)          # stock_df index 초기화 작업(오류 방지)
+def domestic_stock_data_reader(day, ticker):
+    # start and end input format : "2026-07-25"
+    # ticker input format : "005930"
+    # using format.. transforming start and end to : "20260725"
 
-    # ---------------------------------
-    # 그래프 생성
-    # ---------------------------------
-    fig, ax = plt.subplots(figsize=(16, 9))
+    today = datetime.now()
+    today_str = datetime.now().strftime("%Y%m%d")
 
-    x = np.arange(len(stock_df))
+    target_day = today - timedelta(days=day)
+    target_day_str = target_day.strftime("%Y%m%d")
 
-    #-----------------------------------------------------
-    # 축 설정
-    #-----------------------------------------------------
-    # 테두리 제거
-    ax.spines["top"].set_visible(False)
-    ax.spines["bottom"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_visible(False)
-
-    # y축을 오른쪽으로 이동
-    ax.yaxis.tick_right()
-    ax.yaxis.set_label_position("right")
-
-    ax.tick_params(
-        axis="x",
-        bottom=False,       # 아래쪽 눈금 숨김
-        labelbottom=True,   # 아래쪽 라벨 표시
-        top=False,          # 위쪽 눈금 숨김
-        labeltop=False      # 위쪽 라벨 숨김
-    )
-
-    ax.tick_params(
-        axis="y",
-        left=False,
-        labelleft=False,
-        right=False,
-        labelright=True
-    )
-
-    # 양 옆 여백 조금 주기
-    ax.set_xlim(-1, len(stock_df) - 0.5)
-
-    # 위 아래 여백 조금 주기
-    price_min = stock_df["low"].min()
-    price_max = stock_df["high"].max()
-
-    margin = (price_max - price_min) * 0.05
+    start = target_day_str
+    end = today_str
     
-    ax.set_ylim(
-        price_min - margin,
-        price_max + margin*2.5
-    )
-
-    ax.yaxis.set_major_formatter(
-        FuncFormatter(lambda x, pos: f"{int(x):,}")
-    )
-
-    # x축에 평행한 선 그리기
-    ax.grid(
-        axis="y",
-        color="gray",
-        alpha=0.15,
-        linewidth=0.8
+    url = (
+        f"https://m.stock.naver.com/front-api/external/chart/domestic/info"
+        f"?symbol={ticker}"
+        f"&requestType=1"
+        f"&startTime={start}"
+        f"&endTime={end}"
+        f"&timeframe=day"
     )
     
-    #-----------------------------------------------------
-    # 그래프 생성
-    #-----------------------------------------------------
-    ax.plot(
-        x,
-        stock_df["close"],
-        linewidth=1
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+    
+    response = requests.get(
+        url, 
+        headers=headers,
+        timeout=10
     )
     
-    #-----------------------------------------------------
-    # 날짜 표시 (매주 첫 거래일)
-    #-----------------------------------------------------
-    tick_positions = []
-    tick_labels = []
-    week_count = 0
+    text = response.text
+
+    # 줄바꿈, 탭 제거
+    text = re.sub(r'[\n\r\t]', '', text)
     
-    last_week = None
+    # 앞뒤 공백 제거
+    text = text.strip()
+    #print(repr(text))
 
-    if len(x) > 900:
-        for i, row in stock_df.iterrows():
-            
-            week = row["date"].isocalendar().week
-        
-            if week != last_week:
-                if not week_count%(len(x)//50):
-                    tick_positions.append(i)
-                    tick_labels.append(row["date"].strftime("%Y")) 
-                last_week = week
-                week_count += 1
+    # 문자열 → 리스트
+    domestic_stock_data = ast.literal_eval(text)
 
-    elif len(x) > 240:
-        for i, row in stock_df.iterrows():
-            
-            week = row["date"].isocalendar().week
-        
-            if week != last_week:
-                if not week_count%(len(x)//50):
-                    tick_positions.append(i)
-                    tick_labels.append(row["date"].strftime("%Y-%m"))
-                last_week = week
-                week_count += 1
+    # DataFrame 생성
+    domestic_stock_df = pd.DataFrame(domestic_stock_data[1:], columns=domestic_stock_data[0])
 
-    elif len(x) > 80:
-        for i, row in defaultdict.iterrows():
-            
-            week = row["date"].isocalendar().week
-        
-            if week != last_week:
-                if not week_count%(len(x)//50):
-                    tick_positions.append(i)
-                    tick_labels.append(row["date"].strftime("%m-%d"))
-                last_week = week
-                week_count += 1
+    domestic_stock_df["날짜"] = pd.to_datetime(domestic_stock_df["날짜"], format="%Y%m%d")
 
-    else:
-        for i, row in stock_df.iterrows():
+    domestic_stock_df["ticker"] = ticker
 
-            week = row["date"].isocalendar().week
-        
-            if week != last_week:
-                tick_positions.append(i)
-                tick_labels.append(row["date"].strftime("%m-%d"))
-                last_week = week
+    domestic_stock_df["day"] = day
     
-    ax.set_xticks(tick_positions)
-    ax.set_xticklabels(
-        tick_labels,
-        rotation=0,
-        fontsize=9
-    )
+    domestic_stock_df = domestic_stock_df.rename(columns={
+        "날짜": "date",
+        "시가": "open",
+        "고가": "high",
+        "저가": "low",
+        "종가": "close",
+        "거래량": "volume"
+    })
 
-    #-----------------------------------------------------
-    # 최고가 최저가 표시
-    #-----------------------------------------------------
-    # 최고가 / 최저가
-    high_idx = stock_df["close"].idxmax()
-    low_idx = stock_df["close"].idxmin()
-    
-    high_price = stock_df.loc[high_idx, "high"]
-    low_price = stock_df.loc[low_idx, "low"]
-    x_offset = len(x) * 0.007
-    y_offset = (price_max - price_min) * 0.01
-
-    
-    # 최고가 표시
-    ax.plot(
-        high_idx,                            # x 좌표
-        high_price + y_offset,                 # y 좌표
-        marker="v",                          # ▼ 표시
-        color="gray",
-        markersize = 5
-    )
-
-    if len(x)*0.5 < high_idx:
-        x_cord = high_idx - x_offset
-        ha = "right"
-    else:
-        x_cord = high_idx + x_offset
-        ha = "left"
-        
-    ax.text(
-        x_cord,                              # x 좌표
-        high_price + y_offset,               # ▼와 같은 높이
-        f"High Price {high_price:,}",
-        va = "center",
-        ha = ha,
-        fontsize = 8,
-        color="gray"
-    )
-    
-    # 최저가 표시
-    ax.plot(
-        low_idx,
-        low_price - y_offset,
-        marker="^",                          # ▲ 표시
-        color="gray",
-        markersize = 5
-    )
-
-    if low_idx < len(x)*0.5:
-        x_cord = low_idx + x_offset
-        ha = "left"
-    else:
-        x_cord = low_idx - x_offset
-        ha = "right"
-
-
-    ax.text(
-        x_cord,                       # x 좌표
-        low_price - y_offset,           # ▲와 같은 높이
-        f"Low Price {low_price:,}",
-        va = "center",
-        ha = ha,
-        fontsize = 8,
-        color="gray"
-    )
-
-    #-----------------------------------------------------
-    # 현재가 표시
-    #-----------------------------------------------------
-    last_close = stock_df.iloc[-2]["close"]
-    current_close = stock_df.iloc[-1]["close"]
-    
-    # 당일 상승/하락에 따라 색상 결정
-    current_color = "#e53935" if current_close >= last_close else "#1565c0"
-
-    transform = blended_transform_factory(
-        ax.transAxes,   # x는 축 좌표
-        ax.transData    # y는 데이터 좌표
-    )
-
-    triangle_height = (price_max - price_min) * 0.014
-    triangle = Polygon(
-        [
-            [0.9998, current_close],
-            [1.006, current_close + triangle_height],
-            [1.006, current_close - triangle_height]
-        ],
-        closed=True,
-        facecolor=current_color,
-        edgecolor="none",
-        transform=transform,
-        clip_on=False
-    )
-
-    ax.add_patch(triangle)
-
-    ax.text(
-        1.0075,                 # 축의 오른쪽 바깥 0.75%
-        current_close,             # 실제 현재가
-        f"{current_close:,}",
-        transform=transform,
-        ha="left",
-        va="center",
-        fontsize=9,
-        color="white",
-        bbox=dict(
-            boxstyle="round,pad=0.3",
-            fc=current_color,
-            ec="none"
-        )
-    )
-    
-    # ---------------------------------
-    # 화면 출력
-    # ---------------------------------
-    plt.show()
-
-    # 저장
-    plt.tight_layout()
-
-    ticker = stock_df.iloc[1]["ticker"]
-    title = f"data/image/domestic_stock/{name}_{ticker}_chart.png"
-
-    plt.savefig(
-        title,
-        dpi=300,
-        bbox_inches="tight"
-    )
+    return domestic_stock_df
