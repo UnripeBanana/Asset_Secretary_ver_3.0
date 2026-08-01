@@ -284,3 +284,4 @@ def index_chart_maker(index_df):
         dpi=300,
         bbox_inches="tight"
     )
+    plt.close(fig)
