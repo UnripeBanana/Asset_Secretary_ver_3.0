@@ -7,7 +7,7 @@ from matplotlib.patches import Polygon
 from matplotlib.transforms import blended_transform_factory
 from matplotlib.ticker import FuncFormatter
 
-def index_candle_chart_maker(index_df):
+def index_day_candle_chart_maker(index_df):
     index_df = index_df.reset_index(drop=True)          # index_df index 초기화 작업(오류 방지)
 
     #-----------------------------------------------------
