@@ -10,11 +10,17 @@
 
 import requests
 import pandas as pd
-from collector.data_processor.index_data_processor import index_data_processor
+#from collector.data_processor.index_data_processor import index_data_processor
+from datetime import datetime, timedelta
 
-def index_data_reader(start, end, code):
-    start = pd.to_datetime(str(start))
-    end = pd.to_datetime(str(end))
+def index_data_reader(day, code):
+
+    today = datetime.now()
+
+    target_day = today - timedelta(days=day)
+
+    start = target_day
+    end = today
 
     page = 1
     dfs = []
@@ -88,5 +94,7 @@ def index_data_reader(start, end, code):
         .sort_values("date")
         .reset_index(drop=True)
     )
+
+    index_data["day"] = day
 
     return index_data
