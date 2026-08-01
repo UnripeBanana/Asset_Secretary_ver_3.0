@@ -10,7 +10,7 @@
 
 import requests
 import pandas as pd
-#from collector.data_processor.index_data_processor import index_data_processor
+from collector.data_processor.index_data_processor import index_data_processor
 from datetime import datetime, timedelta
 
 def index_data_reader(day, code):
