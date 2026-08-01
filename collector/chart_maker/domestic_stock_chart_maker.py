@@ -272,3 +272,4 @@ def domestic_stock_chart_maker(stock_df, name):
         dpi=300,
         bbox_inches="tight"
     )
+    plt.close(fig)
