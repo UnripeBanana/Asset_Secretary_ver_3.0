@@ -336,8 +336,9 @@ def index_day_candle_chart_maker(index_df):
     }
     
     name = code_trans[index_df.iloc[0]["code"]]
+    day = index_df.iloc[1]["day"]
 
-    title = f"data/image/market_index/{name}_candle_chart.png"
+    title = f"data/image/market_index/{name}_{day}days_day_candle_chart.png"
 
     plt.savefig(
         title,
