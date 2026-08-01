@@ -250,3 +250,5 @@ def standard_interest_chart_maker(standard_interest_df):
         dpi=300,
         bbox_inches="tight"
     )
+
+    plt.close()
