@@ -17,7 +17,6 @@ from notion.index_callout.performer import index_callout_performer
 #-------------------------------------------
 # 작업 완료
 #-------------------------------------------
-#domestic_stock_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
 #domestic_stock_day_candle_chart_maker(domestic_stock_data_reader("2025-07-20", "2026-07-27", "005930"), "삼성전자")
 
 #index_chart_maker(index_data_reader("2025-07-20", "2026-07-27", "KOSPI"))                
