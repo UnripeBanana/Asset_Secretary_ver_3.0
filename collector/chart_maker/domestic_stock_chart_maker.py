@@ -115,7 +115,7 @@ def domestic_stock_chart_maker(stock_df, name):
                 week_count += 1
 
     elif len(x) > 80:
-        for i, row in defaultdict.iterrows():
+        for i, row in stock_df.iterrows():
             
             week = row["date"].isocalendar().week
         
